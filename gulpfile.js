@@ -134,7 +134,6 @@ function serve() {
         open: false // Change it to true if you wish to allow Browsersync to open a browser window.
     };
     
-    browserSync(options);
     
     // Watches for changes in files inside the './src' folder.
     gulp.watch(SOURCE_PATH + '/**/*.js', ['watch-js']);
