@@ -28,8 +28,9 @@ class Ennemi extends Phaser.Sprite {
 	die() {
 		this.alive = false;
 		this.walk.stop();
-		this.body.collideWorldBounds = false;
+		this.animations.stop('run');
 		this.body.velocity.y = -500;
+		this.body.enable = false;
 		this.game.add.tween(this).to({ alpha: 0 }, 1000).start();
 	}
 }
