@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Phaser Template</title>
+	<style>
+	@font-face {
+      font-family: 'minecraft';
+	  src: url('assets/Minecraft.ttf');
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'minecraft', sans-serif;
+    }
+	</style>
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="manifest" href="manifest.json">
+
+	<script>
+	if (navigator.serviceWorker) {
+	  navigator.serviceWorker.register('service-worker.js')
+	    .then(function(){
+	    	console.log('service worker installed');
+	    })
+	    .catch(function(err){
+	    	console.log('Error', err);
+	    });
+	}
+	</script>
+	
+</head>
+<body>
+	<div class="fontLoader" style="font-family: minecraft; visibility: hidden; opacity: 0;">-</div>
+	<script src="scripts/phaser.min.js"></script>
+	<script src="scripts/game.js"></script>
+</body>
+</html>

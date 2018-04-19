@@ -1,29 +1,34 @@
 {
-  "name": "phaser3-project-template",
-  "version": "1.0.9",
-  "description": "A Phaser 3 Project Template",
+  "name": "phaser-es6-boilerplate",
+  "version": "1.0.2",
+  "description": "Tiny flexible template for writing Phaser games in ES6/ES2015 with Babel.",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack",
-    "start": "npm run build && webpack-dev-server --port=8000"
+    "start": "gulp",
+    "production": "gulp --production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-project-template.git"
+    "url": "https://github.com/belohlavek/phaser-es6-boilerplate"
   },
-  "author": "Richard Davey <rdavey@gmail.com> (http://www.photonstorm.com)",
+  "author": "Daniel Belohlavek",
   "license": "MIT",
-  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-  "bugs": {
-    "url": "https://github.com/photonstorm/phaser3-project-template/issues"
-  },
-  "homepage": "https://github.com/photonstorm/phaser3-project-template#readme",
   "devDependencies": {
-    "webpack-dev-server": "^2.11.0",
-    "webpack": "^3.4.1",
-    "raw-loader": "^0.5.1"
+    "babelify": "^6.1.3",
+    "browser-sync": "^2.8.0",
+    "browserify": "^11.0.0",
+    "del": "^1.2.0",
+    "exorcist": "^0.4.0",
+    "gulp": "^3.9.0",
+    "gulp-buffer": "0.0.2",
+    "gulp-if": "^1.2.5",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.16.1"
   },
   "dependencies": {
-    "phaser": "^3.3.0"
+    "ismobilejs": "^0.4.1",
+    "phaser": "^2.6.2"
   }
 }

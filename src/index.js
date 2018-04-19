@@ -1,34 +1,28 @@
-import 'phaser';
+import Boot from 'states/Boot';
+import Preload from 'states/Preload';
+import GameTitle from 'states/GameTitle';
+import Main from 'states/Main';
+import GameOver from 'states/GameOver';
+import isMobile from 'ismobilejs';
 
-var config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create
-    }
-};
+class Game extends Phaser.Game {
 
-var game = new Phaser.Game(config);
+	constructor() {
+		if(isMobile.any) {
+			super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO);
+		} else {
+			super(667, 375, Phaser.AUTO);
+		}
 
-function preload ()
-{
-    this.load.image('logo', 'assets/logo.png');
-}
+		this.state.add('Boot', Boot, false);
+		this.state.add('Preload', Preload, false);
+		this.state.add('GameTitle', GameTitle, false);
+		this.state.add('Main', Main, false);
+		this.state.add('GameOver', GameOver, false);
 
-function create ()
-{
-    var logo = this.add.image(400, 150, 'logo');
-
-    this.tweens.add({
-        targets: logo,
-        y: 450,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1
-    });
+		this.state.start('Boot');
+	}
 
 }
+
+new Game();
