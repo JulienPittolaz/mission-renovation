@@ -10,7 +10,7 @@ class Player extends Phaser.Sprite {
 		this.body.bounce.y = 0;
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
-		this.body.acceleration.x = 1000;
+		this.body.acceleration.x = 10000;
 		this.body.velocity.x = 150;
 		this.body.maxVelocity.x = 150;
 		this.inputEnabled = true;
@@ -42,18 +42,43 @@ class Player extends Phaser.Sprite {
 
 
 		//JUMP
-		if(!this.body.touching.down) {
-			//this.animations.stop('run');
+		if(!this.body.blocked.down) {
+			this.animations.stop('run');
 		} else {
-			//this.animations.play('run');
+			if(this.alive) {
+				this.animations.play('run');
+			}
 		}
+	}
+
+	die() {
+		this.alive = false;
+		this.animations.stop('run');
+		let self = this;
+		setTimeout(function(){
+			self.body.velocity.x = 0;
+			self.body.maxVelocity.x = 0;
+		}, 200);
+		let text = this.game.add.text(this.game.camera.view.x + (this.game.camera.view.width / 2), this.game.camera.view.y + (this.game.camera.view.height / 3),
+		"LA MORT !", {
+            font: "40px minecraft",
+			fill: "#FFFFFF",
+			align: "right"
+		});
+		text.anchor.setTo(0.5);
+
+		let restartButton = this.game.add.button(this.game.camera.view.x + (this.game.camera.view.width / 2), this.game.camera.view.y + (this.game.camera.view.height / 2),
+		'restart',
+		function() {
+			this.game.state.start("Main");
+		});
+		restartButton.anchor.setTo(0.5);
 	}
 }
 
 function jump(player) {
-	console.log(player.body);
 	
-	if(player.body.blocked.down) {
+	if(player.body.blocked.down && player.alive) {
 		
 		if(player.body.blocked.right) {
 			player.body.gravity.x = 600;
