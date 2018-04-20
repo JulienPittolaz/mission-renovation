@@ -26,7 +26,10 @@ class Main extends Phaser.State {
 		this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
         this.grounds.resizeWorld();
 		this.grounds.wrap = true;
-		//this.grounds.scale.setTo(this.scaleRatio, this.scaleRatio);
+		this.grounds.visible = false;
+		this.levelbg = this.game.add.image(0, this.game.world.height, 'ground');
+		console.log(this.levelbg);
+		
 
 		this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
         this.water.resizeWorld();
