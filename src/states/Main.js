@@ -58,7 +58,7 @@ class Main extends Phaser.State {
 
 	update() {
 		var self = this;
-		this.background.tilePosition.x = -(this.game.camera.x * 0.9);
+		//this.background.tilePosition.x = -(this.game.camera.x * 0.9);
 		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 		var playerHitWater = this.game.physics.arcade.collide(this.characters, this.water, function(player, water) {
 			self.map.setCollisionBetween(1, 1000, false, 'eau');
