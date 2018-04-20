@@ -60,7 +60,7 @@ class Player extends Phaser.Sprite {
 			self.body.maxVelocity.x = 0;
 		}, 200);
 		let text = this.game.add.text(this.game.camera.view.x + (this.game.camera.view.width / 2), this.game.camera.view.y + (this.game.camera.view.height / 3),
-		"LA MORT !", {
+		"GAME OVER", {
             font: "40px minecraft",
 			fill: "#FFFFFF",
 			align: "right"
