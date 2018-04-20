@@ -2,8 +2,6 @@ class Preload extends Phaser.State {
 
 	preload() {
 		/* Preload required assets */
-		//this.game.load.image('myImage', 'assets/my-image.png');
-		this.game.load.spritesheet('player', 'assets/player.png', 32, 48);
 		this.game.load.spritesheet('mereRoyaume', 'assets/mereRoyaume.png', 61, 64);
 		this.game.load.spritesheet('mushroom', 'assets/mushroom.png', 32, 32);
 		this.game.load.tilemap('niveau1', 'assets/niveau1.json', null, Phaser.Tilemap.TILED_JSON);
