@@ -7,12 +7,12 @@ class Player extends Phaser.Sprite {
 		this.body.collideWorldBounds = true;
 		this.animations.add('run', [0, 1, 2, 3], 12, true);
 		this.animations.play('run');
-		this.body.bounce.y = 0;
+		this.body.bounce.y = 0.1;
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
 		this.body.acceleration.x = 10000;
-		this.body.velocity.x = 150;
-		this.body.maxVelocity.x = 150;
+		this.body.velocity.x = 160;
+		this.body.maxVelocity.x = 160;
 		this.inputEnabled = true;
 		this.jumpTimer = 0;
 		this.jumping = false;
