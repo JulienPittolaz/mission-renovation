@@ -5,6 +5,9 @@ import Ennemi from '../objects/ennemi';
 class Main extends Phaser.State {
 
 	create() {
+		console.log(this);
+		
+		this.scaleRatio = 2;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -19,18 +22,17 @@ class Main extends Phaser.State {
 		
 		this.map.addTilesetImage('ground_tileset', 'tilesn1');
 		this.map.addTilesetImage('jetEau', 'jetEau');
-		
 
 		this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
         this.grounds.resizeWorld();
 		this.grounds.wrap = true;
-		this.grounds.debug = true;
+		//this.grounds.scale.setTo(this.scaleRatio, this.scaleRatio);
 
 		this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
         this.water.resizeWorld();
 		this.water.wrap = true;
 
-		this.env = this.map.createLayer('env', this.game.world.width * 30, this.game.world.height);
+		this.env = this.map.createLayer('env', this.game.world.width * 100, this.game.world.height);
 		this.env.resizeWorld();
 		this.env.wrap = true;
 
@@ -40,6 +42,8 @@ class Main extends Phaser.State {
 		//CHARACTERS
 		this.characters = this.game.add.group();
 		this.ennemies = this.game.add.group();
+		//this.characters.scale.setTo(this.scaleRatio, this.scaleRatio);
+		//this.ennemies.scale.setTo(this.scaleRatio, this.scaleRatio);
 
 		//MERE ROYAUME
 		this.player = new Player(this.game, 20, 700, 'mereRoyaume', 0);
@@ -77,6 +81,10 @@ class Main extends Phaser.State {
 		}, this);
 
 
+	}
+
+	render() {
+		this.game.debug.cameraInfo(this.game.camera, 32, 32);
 	}
 
 }
