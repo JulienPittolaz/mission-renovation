@@ -663,7 +663,6 @@ var Main = (function (_Phaser$State) {
 			//relique
 			this.relique = new _objectsRelique2['default'](this.game, 1240, 450, 'mobiliteReduite', 1);
 			this.reliques.add(this.relique);
-			console.log(this.relique);
 		}
 	}, {
 		key: 'update',

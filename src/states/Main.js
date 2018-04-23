@@ -26,6 +26,7 @@ class Main extends Phaser.State {
         this.grounds.resizeWorld();
 		this.grounds.wrap = true;
 		
+		
 
 		//this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
 		//this.water.resizeWorld();
@@ -65,7 +66,6 @@ class Main extends Phaser.State {
 		//relique
 		this.relique = new Relique(this.game, 1240, 450, 'mobiliteReduite', 1);
 		this.reliques.add(this.relique);
-		console.log(this.relique);
 		
 	}
 
