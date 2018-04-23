@@ -181,7 +181,7 @@ var Game = (function (_Phaser$Game) {
 		if (_ismobilejs2['default'].any) {
 			_get(Object.getPrototypeOf(Game.prototype), 'constructor', this).call(this, window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.RESIZE);
 		} else {
-			_get(Object.getPrototypeOf(Game.prototype), 'constructor', this).call(this, 667, 375, Phaser.AUTO);
+			_get(Object.getPrototypeOf(Game.prototype), 'constructor', this).call(this, 480, 320, Phaser.AUTO);
 		}
 		this.state.add('Boot', _statesBoot2['default'], false);
 		this.state.add('Preload', _statesPreload2['default'], false);
@@ -666,25 +666,27 @@ var Main = (function (_Phaser$State) {
 	}, {
 		key: 'update',
 		value: function update() {
-			var self = this;
-			//var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
-			var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
-			var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
-
-			//var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
-			var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
-				if (ennemi.alive) {
-					if (player.bottom > ennemi.top) {
-						player.health -= 1;
-					}
-					ennemi.die();
-				}
-
-				if (player.health === 0) {
-					player.alive = false;
-					this.game.state.start("Main");
-				}
-			}, this);
+			/*var self = this;
+   //var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
+   //var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
+   //var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
+   
+   //var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
+   var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
+   	if (ennemi.alive) {
+   		if(player.bottom > ennemi.top) {
+   			player.health -= 1;
+   		}
+   		ennemi.die();
+   	}
+   	
+   	if(player.health === 0) {
+   		player.alive = false;
+   		this.game.state.start("Main");
+   	}
+   	
+   }, this);
+   */
 		}
 	}, {
 		key: 'render',

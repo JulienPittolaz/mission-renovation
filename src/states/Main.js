@@ -70,10 +70,10 @@ class Main extends Phaser.State {
 	}
 
 	update() {
-		var self = this;
+		/*var self = this;
 		//var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
-		var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
-		var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
+		//var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
+		//var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
 		
 		//var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
 		var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
@@ -91,7 +91,7 @@ class Main extends Phaser.State {
 			
 		}, this);
 
-
+*/
 	}
 
 	render() {

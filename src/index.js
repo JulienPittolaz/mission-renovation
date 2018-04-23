@@ -13,7 +13,7 @@ class Game extends Phaser.Game {
 			super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.RESIZE);
 			
 		} else {
-			super(667, 375, Phaser.AUTO);
+			super(480, 320, Phaser.AUTO);
 		}
 		this.state.add('Boot', Boot, false);
 		this.state.add('Preload', Preload, false);
