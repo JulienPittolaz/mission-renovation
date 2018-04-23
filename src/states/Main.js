@@ -5,16 +5,14 @@ import Relique from '../objects/relique';
 class Main extends Phaser.State {
 
 	create() {
-		
-		this.scaleRatio = 2;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.gravity.y = 250;
 
 		//BACKGROUND
-		this.game.stage.backgroundColor = '#d5f6ff';
-		this.background = this.game.add.tileSprite(0, this.game.world.height, 3200, 3000, 'sky');
+		//this.game.stage.backgroundColor = '#d5f6ff';
+		//this.background = this.game.add.tileSprite(0, this.game.world.height, 3200, 3000, 'sky');
 
 		//ENVIRONNEMENT
 		this.map = this.game.add.tilemap("niveau1");
@@ -40,9 +38,9 @@ class Main extends Phaser.State {
 		this.flag.resizeWorld();
 		this.flag.wrap = true;
 
-		this.map.setCollisionBetween(1, 1000, true, 'myGround');
+		//this.map.setCollisionBetween(1, 1000, true, 'myGround');
 		//this.map.setCollisionBetween(1, 1000, true, 'eau');
-		this.map.setCollisionBetween(3, 1000, true, 'drapeau');
+		//this.map.setCollisionBetween(3, 1000, true, 'drapeau');
 
 		//CHARACTERS
 		this.characters = this.game.add.group();
