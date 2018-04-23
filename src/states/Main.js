@@ -29,9 +29,8 @@ class Main extends Phaser.State {
 		this.grounds.wrap = true;
 		
 
-		this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
-        this.water.resizeWorld();
-		this.water.wrap = true;
+		//this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
+		//this.water.resizeWorld();
 
 		this.env = this.map.createLayer('env', this.game.world.width, this.game.world.height);
 		this.env.resizeWorld();
@@ -42,7 +41,7 @@ class Main extends Phaser.State {
 		this.flag.wrap = true;
 
 		this.map.setCollisionBetween(1, 1000, true, 'myGround');
-		this.map.setCollisionBetween(1, 1000, true, 'eau');
+		//this.map.setCollisionBetween(1, 1000, true, 'eau');
 		this.map.setCollisionBetween(3, 1000, true, 'drapeau');
 
 		//CHARACTERS
@@ -55,6 +54,7 @@ class Main extends Phaser.State {
 		this.game.camera.follow(this.player);
 		
 		this.characters.add(this.player);
+		this.player.debug = true;
 
 		//ENNEMIES
 		this.mushroom = new Ennemi(this.game, 200, 700, 'mushroom', 4);
@@ -73,13 +73,11 @@ class Main extends Phaser.State {
 
 	update() {
 		var self = this;
-		//this.background.tilePosition.x = -(this.game.camera.x * 0.9);
 		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 		var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
-		var playerHitWater = this.game.physics.arcade.collide(this.characters, this.water, function(player, water) {
-			self.map.setCollisionBetween(1, 1000, false, 'eau');
-			player.die();
-		});
+		var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
+		console.log(playerHitWater);
+		
 		var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
 		var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
 			if (ennemi.alive) {
