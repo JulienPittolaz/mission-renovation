@@ -16,6 +16,7 @@ class Main extends Phaser.State {
 
 		//ENVIRONNEMENT
 		this.map = this.game.add.tilemap("niveau1");
+		//this.map.renderSettings.enableScrollDelta = false;
 		
 		this.map.addTilesetImage('ground_tileset', 'tilesn1');
 		this.map.addTilesetImage('jetEau', 'jetEau');
@@ -34,10 +35,12 @@ class Main extends Phaser.State {
 		this.env = this.map.createLayer('env', this.game.world.width, this.game.world.height);
 		this.env.resizeWorld();
 		this.env.wrap = true;
+		this.env.renderSettings.enableScrollDelta = false;
 
 		this.flag = this.map.createLayer('drapeau', this.game.world.width, this.game.world.height);
 		this.flag.resizeWorld();
 		this.flag.wrap = true;
+		this.flag.renderSettings.enableScrollDelta = false;
 
 		//this.map.setCollisionBetween(1, 1000, true, 'myGround');
 		//this.map.setCollisionBetween(1, 1000, true, 'eau');

@@ -10,10 +10,10 @@ class Game extends Phaser.Game {
 	constructor() {
 		
 		if(isMobile.any) {
-			super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.RESIZE);
+			super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.CANVAS);
 			
 		} else {
-			super(480, 320, Phaser.AUTO);
+			super(480, 320, Phaser.CANVAS);
 		}
 		this.state.add('Boot', Boot, false);
 		this.state.add('Preload', Preload, false);
