@@ -24,22 +24,14 @@ class Player extends Phaser.Sprite {
 		this.game.input.onTap.add(function() {
 			jump(this);
 		}, this);
+
+		this.hurtAnimation = this.game.add.tween(this)
+			.to({
+				alpha: [0.1, 1, 0.1, 1]
+			}, 0.66 * Phaser.Timer.SECOND);
 	}
 
 	update() {
-		//CHECK IF ALIVE
-		if(!this.alive) {
-			//TO DO
-		}
-
-		//GET HURT
-		/*if() {
-			this.health --;
-			if(this.health === 0) {
-				this.alive = false;
-			}
-		}*/
-
 
 		//JUMP
 		if(!this.body.blocked.down) {
@@ -73,6 +65,16 @@ class Player extends Phaser.Sprite {
 			this.game.state.start("Main");
 		});
 		restartButton.anchor.setTo(0.5);
+	}
+
+	getHurt() {
+		
+		this.health -= 1;
+		if (this.health === 0) {
+			this.die();
+		}
+		this.hurtAnimation.start();
+		
 	}
 }
 

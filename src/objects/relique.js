@@ -9,6 +9,12 @@ class Relique extends Phaser.Sprite {
 		this.body.gravity.y = 0;
 		this.body.velocity.y = 0;
 		this.body.maxVelocity.y = 0;
+
+		this.fadeOut = this.game.add.tween(this)
+			.to({
+				y: [this.y - 60],
+				alpha: 0,
+			}, 0.5 * Phaser.Timer.SECOND);
 	}
 
 }

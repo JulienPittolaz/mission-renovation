@@ -53,16 +53,18 @@ class Ennemi extends Phaser.Sprite {
 	}
 
 	die() {
+		var self = this;
 		this.alive = false;
 		this.startWalkRight.stop();
 		this.finishWalkRight.stop();
 		this.walkLeft.stop();
 		this.animations.stop('runRight');
 		this.animations.stop('runLeft');
-		this.body.velocity.y = -500;
-		this.body.enable = false;
-		this.game.add.tween(this).to({ alpha: 0 }, 1000).start();
-		this.kill();
+		this.game.add.tween(this).to({ alpha: 0, x: this.x + 30}, 500).start();
+		this.game.add.tween(this).to({y: [this.y + 30] }, 600, Phaser.Easing.Back.InOut).start();
+		setTimeout(function() {
+			self.body.enable = false;
+		}, 50)
 	}
 }
 

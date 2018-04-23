@@ -12,7 +12,8 @@ class Main extends Phaser.State {
 
 		//BACKGROUND
 		this.game.stage.backgroundColor = '#d5f6ff';
-		this.background = this.game.add.tileSprite(0, this.game.world.height, 3200, 1000, 'sky');
+		this.background = this.game.add.tileSprite(0, this.game.height * 0.6, this.game.world.width * 100, 1000, 'sky');
+		
 
 		//ENVIRONNEMENT
 		this.map = this.game.add.tilemap("niveau1");
@@ -21,6 +22,8 @@ class Main extends Phaser.State {
 		this.map.addTilesetImage('jetEau', 'jetEau');
 		this.map.addTilesetImage('drapeau', 'drapeau');
 		this.map.addTilesetImage('building1', 'building');
+		this.map.addTilesetImage('long-building', 'long-building');
+		this.map.addTilesetImage('geneva-building1', 'geneva-building');
 
 		this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
 		this.grounds.resizeWorld();
@@ -36,14 +39,10 @@ class Main extends Phaser.State {
 		this.env.wrap = true;
 		this.env.renderSettings.enableScrollDelta = false;
 
-		this.flag = this.map.createLayer('drapeau', this.game.world.width, this.game.world.height);
-		this.flag.resizeWorld();
-		this.flag.wrap = true;
-		this.flag.renderSettings.enableScrollDelta = false;
+		this.flag = this.game.add.sprite(this.game.world.width - 200, 416, 'drapeau', 0);
 
 		this.map.setCollisionBetween(1, 1000, true, 'myGround');
 		this.map.setCollisionBetween(1, 1000, true, 'eau');
-		this.map.setCollisionBetween(1, 1000, true, 'drapeau');
 
 		//CHARACTERS
 		this.characters = this.game.add.group();
@@ -67,13 +66,22 @@ class Main extends Phaser.State {
 		this.ennemies.add(new Ennemi(this.game, 1480, 600, 'ail', 4));
 		this.ennemies.add(new Ennemi(this.game, 1800, 600, 'poivron', 4));
 
+
+
 	}
 
 	update() {
 		var self = this;
+		this.background.tilePosition.x -= 0.6;
 		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
+
+		var playerHitFlag = this.flag.overlap(this.player);
+		if(playerHitFlag) {
+			setTimeout(function() {
+				alert('NIVEAU FINI !!!');
+			}, 500);
+		}
 		
-		var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
 
 		var playerHitWater = this.game.physics.arcade.collide(this.player, this.water, function (player, water) {
 			this.map.setCollisionBetween(1, 1000, false, 'eau');
@@ -81,6 +89,7 @@ class Main extends Phaser.State {
 		}, null, this);
 
 		var playerHitRelique = this.game.physics.arcade.overlap(this.characters, this.reliques, function (player, relique) {
+			relique.fadeOut.start();
 			
 		}, null, this);
 		
@@ -89,14 +98,9 @@ class Main extends Phaser.State {
 		var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
 			if (ennemi.alive) {
 				if (player.bottom > ennemi.top) {
-					player.health -= 1;
+					player.getHurt();
 				}
 				ennemi.die();
-			}
-
-			if (player.health === 0) {
-				player.alive = false;
-				this.game.state.start("Main");
 			}
 
 		}, this);
