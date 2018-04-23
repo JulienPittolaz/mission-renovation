@@ -16,16 +16,16 @@ class Main extends Phaser.State {
 
 		//ENVIRONNEMENT
 		this.map = this.game.add.tilemap("niveau1");
-		//this.map.renderSettings.enableScrollDelta = false;
 		
 		this.map.addTilesetImage('ground_tileset', 'tilesn1');
 		this.map.addTilesetImage('jetEau', 'jetEau');
 		this.map.addTilesetImage('drapeau', 'drapeau');
 		this.map.addTilesetImage('building1', 'building');
 		
-		//this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
-        //this.grounds.resizeWorld();
-		//this.grounds.wrap = true;
+		this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
+        this.grounds.resizeWorld();
+		this.grounds.wrap = true;
+		this.grounds.renderSettings.enableScrollDelta = false;
 		
 		
 
