@@ -45,7 +45,6 @@ class Ennemi extends Phaser.Sprite {
 		});
 
 		this.finishWalkRight.onComplete.add(function(ennemi) {
-			console.log(ennemi.x);
 			ennemi.startWalkRight.start();
 		});
 	}

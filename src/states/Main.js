@@ -22,9 +22,9 @@ class Main extends Phaser.State {
 		this.map.addTilesetImage('drapeau', 'drapeau');
 		this.map.addTilesetImage('building1', 'building');
 		
-		this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
-        this.grounds.resizeWorld();
-		this.grounds.wrap = true;
+		//this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
+        //this.grounds.resizeWorld();
+		//this.grounds.wrap = true;
 		
 		
 

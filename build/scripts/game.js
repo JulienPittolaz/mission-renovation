@@ -370,7 +370,6 @@ var Ennemi = (function (_Phaser$Sprite) {
 		});
 
 		this.finishWalkRight.onComplete.add(function (ennemi) {
-			console.log(ennemi.x);
 			ennemi.startWalkRight.start();
 		});
 	}
@@ -621,9 +620,9 @@ var Main = (function (_Phaser$State) {
 			this.map.addTilesetImage('drapeau', 'drapeau');
 			this.map.addTilesetImage('building1', 'building');
 
-			this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
-			this.grounds.resizeWorld();
-			this.grounds.wrap = true;
+			//this.grounds = this.map.createLayer('myGround', this.game.world.width, this.game.world.height);
+			//this.grounds.resizeWorld();
+			//this.grounds.wrap = true;
 
 			//this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
 			//this.water.resizeWorld();
