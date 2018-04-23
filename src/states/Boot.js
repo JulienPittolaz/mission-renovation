@@ -7,7 +7,6 @@ class Boot extends Phaser.State {
 	}
 
 	create() {
-		console.log(this);
 		
 		if (isMobile.any) {
 			this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
