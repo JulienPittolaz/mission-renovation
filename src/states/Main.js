@@ -27,10 +27,9 @@ class Main extends Phaser.State {
 		this.grounds.wrap = true;
 		this.grounds.renderSettings.enableScrollDelta = false;
 		
-		
-
-		//this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
-		//this.water.resizeWorld();
+		this.water = this.map.createLayer('eau', this.game.world.width, this.game.world.height);
+		this.water.renderSettings.enableScrollDelta = false;
+		this.water.resizeWorld();
 
 		this.env = this.map.createLayer('env', this.game.world.width, this.game.world.height);
 		this.env.resizeWorld();
@@ -42,9 +41,9 @@ class Main extends Phaser.State {
 		this.flag.wrap = true;
 		this.flag.renderSettings.enableScrollDelta = false;
 
-		//this.map.setCollisionBetween(1, 1000, true, 'myGround');
-		//this.map.setCollisionBetween(1, 1000, true, 'eau');
-		//this.map.setCollisionBetween(3, 1000, true, 'drapeau');
+		this.map.setCollisionBetween(1, 1000, true, 'myGround');
+		this.map.setCollisionBetween(1, 1000, true, 'eau');
+		this.map.setCollisionBetween(3, 1000, true, 'drapeau');
 
 		//CHARACTERS
 		this.characters = this.game.add.group();
@@ -73,12 +72,12 @@ class Main extends Phaser.State {
 	}
 
 	update() {
-		/*var self = this;
-		//var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
-		//var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
-		//var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
+		var self = this;
+		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
+		var playerHitFlag = this.game.physics.arcade.collide(this.characters, this.flag);
+		var playerHitWater = this.game.physics.arcade.overlap(this.player, this.water, null, null, this);
 		
-		//var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
+		var ennemiHitPlatform = this.game.physics.arcade.collide(this.ennemies, this.grounds);
 		var playerHitEnnemi = this.game.physics.arcade.collide(this.ennemies, this.player, null, function (player, ennemi) {
 			if (ennemi.alive) {
 				if(player.bottom > ennemi.top) {
@@ -94,7 +93,6 @@ class Main extends Phaser.State {
 			
 		}, this);
 
-*/
 	}
 
 	render() {
