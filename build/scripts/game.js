@@ -390,6 +390,7 @@ var Ennemi = (function (_Phaser$Sprite) {
 			this.body.velocity.y = -500;
 			this.body.enable = false;
 			this.game.add.tween(this).to({ alpha: 0 }, 1000).start();
+			this.kill();
 		}
 	}]);
 
