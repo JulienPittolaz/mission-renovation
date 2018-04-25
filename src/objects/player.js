@@ -1,3 +1,4 @@
+import $ from 'jquery';
 class Player extends Phaser.Sprite {
 
 	constructor(game, x, y, key, frame) {
@@ -19,7 +20,7 @@ class Player extends Phaser.Sprite {
 		this.health = 3;
 		this.alive = true;
 		this.height = 40;
-		this.width = 36
+		this.width = 36;
 
 		this.game.input.onTap.add(function() {
 			jump(this);
@@ -32,7 +33,6 @@ class Player extends Phaser.Sprite {
 	}
 
 	update() {
-
 		//JUMP
 		if(!this.body.blocked.down) {
 			this.animations.stop('run');
@@ -44,32 +44,39 @@ class Player extends Phaser.Sprite {
 	}
 
 	die() {
+		let self = this;
 		this.alive = false;
 		this.animations.stop('run');
-		let self = this;
 		setTimeout(function(){
 			self.body.velocity.x = 0;
 			self.body.maxVelocity.x = 0;
 		}, 200);
-		let text = this.game.add.text(this.game.camera.view.x + (this.game.camera.view.width / 2), this.game.camera.view.y + (this.game.camera.view.height / 3),
+		let text = this.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 60,
 		"GAME OVER", {
             font: "40px minecraft",
 			fill: "#FFFFFF",
 			align: "right"
 		});
 		text.anchor.setTo(0.5);
-
-		let restartButton = this.game.add.button(this.game.camera.view.x + (this.game.camera.view.width / 2), this.game.camera.view.y + (this.game.camera.view.height / 2),
+		text.fixedToCamera = true;
+		let restartButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() / 2,
 		'restart',
 		function() {
-			this.game.state.start("Main");
+			self.game.camera.fade('#000000');
+			let thegame = self.game;
+			self.game.camera.onFadeComplete.add(function() {
+				thegame.state.start("Main");	
+			}, self);
 		});
 		restartButton.anchor.setTo(0.5);
+		restartButton.scale.set(0.2);
+		restartButton.fixedToCamera = true;
 	}
 
 	getHurt() {
 		
 		this.health -= 1;
+		
 		if (this.health === 0) {
 			this.die();
 		}
