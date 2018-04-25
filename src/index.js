@@ -31,8 +31,10 @@ class Game extends Phaser.Game {
 
 if(window.innerHeight > window.innerWidth){
 	$('canvas').css('visibility', 'hidden');
+	$('#turn').css('visibility', 'visible');
 } else {
 	GENEVA = new Game();
+	$('#turn').css('visibility', 'hidden');
 }
 
 $(window).on('resize', function() {
@@ -40,16 +42,20 @@ $(window).on('resize', function() {
 		if(GENEVA) {		
 			GENEVA.paused = true;
 			$('canvas').css('visibility', 'hidden');
+			$('#turn').css('visibility', 'visible');
 		} else {
 			$('canvas').css('visibility', 'visible');
+			$('#turn').css('visibility', 'hidden');
 		}
 	} else {
 		if(GENEVA) {
 			GENEVA.paused = false;
 			$('canvas').css('visibility', 'visible');
+			$('#turn').css('visibility', 'hidden');
 		} else {
 			GENEVA = new Game();
 			$('canvas').css('visibility', 'visible');
+			$('#turn').css('visibility', 'hidden');
 		}
 	}
 });
