@@ -10647,8 +10647,8 @@ var Player = (function (_Phaser$Sprite) {
 		this.jumping = false;
 		this.health = 3;
 		this.alive = true;
-		this.height = 40;
-		this.width = 36;
+		//this.height = 40;
+		//this.width = 36;
 
 		this.game.input.onTap.add(function () {
 			jump(this);
@@ -11300,7 +11300,7 @@ var Main = (function (_Phaser$State) {
 		value: function create() {
 			this.game.camera.fade('#000000', 1, true);
 			this.game.camera.flash('#000000', 500, true);
-			this.music = this.game.sound.play('song', 0.6);
+			this.music = this.game.sound.play('song', 0.6, true);
 
 			//Enable Arcade Physics
 			this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -11349,7 +11349,8 @@ var Main = (function (_Phaser$State) {
    this.foreground.renderSettings.enableScrollDelta = false;
    this.foreground.bringToTop();*/
 
-			this.flag = this.game.add.sprite(this.game.world.width - 200, 344, 'drapeau', 0);
+			this.flag = this.game.add.sprite(this.game.world.width - 200, 434, 'drapeau', 0);
+			this.chair = this.game.add.sprite(this.game.world.width - 160, this.game.world.height - 160, 'chair', 0);
 
 			this.map.setCollisionByExclusion([], true, 'platform');
 			this.map.setCollisionByExclusion([], true, 'water');
@@ -11363,6 +11364,7 @@ var Main = (function (_Phaser$State) {
 
 			//MERE ROYAUME
 			this.player = new _objectsPlayer2['default'](this.game, 0, 600, 'mereRoyaume', 0);
+			//this.player = new Player(this.game, this.game.world.width - 30, 600, 'mereRoyaume', 0);
 			this.game.camera.follow(this.player);
 			this.characters.add(this.player);
 			this.life = this.game.add.existing(new _objectsLifeManager2['default'](this.game, 45, 30, 'hearts', this.player.health, this.player.health));
@@ -11377,8 +11379,6 @@ var Main = (function (_Phaser$State) {
 
 			this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
 			this.gare.bringToTop();
-
-			console.log(this.game);
 		}
 	}, {
 		key: 'update',
@@ -11387,12 +11387,8 @@ var Main = (function (_Phaser$State) {
 			//this.background.tilePosition.x -= 0.6;
 			var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 
-			/*var playerHitFlag = this.flag.overlap(this.player);
-   if (playerHitFlag) {
-   	setTimeout(function () {
-   		console.log('NIVEAU FINI !!!');
-   	}, 500);
-   }*/
+			var playerHitChair = this.flag.overlap(this.player);
+			if (playerHitChair) {}
 
 			var playerHitWater = this.game.physics.arcade.collide(this.player, this.water, function (player, water) {
 				this.map.setCollisionBetween(1, 1000, false, 'water');
@@ -11423,7 +11419,7 @@ var Main = (function (_Phaser$State) {
 	}, {
 		key: 'render',
 		value: function render() {
-			this.game.debug.spriteInfo(this.player, 32, 32);
+			//this.game.debug.spriteInfo(this.player, 32, 32);
 		}
 	}]);
 
@@ -11492,6 +11488,7 @@ var Preload = (function (_Phaser$State) {
 			this.game.load.image('geneva-building3', 'assets/geneva-building3.png');
 			this.game.load.image('geneva-building4', 'assets/geneva-building4.png');
 			this.game.load.image('drapeau', 'assets/drapeau.png');
+			this.game.load.image('chair', 'assets/chaise.png');
 			this.game.load.image('building', 'assets/building1.png');
 			this.game.load.image('sky', 'assets/sky.png');
 			this.game.load.image('horloge-fleurie', 'assets/horloge-fleurie.png');

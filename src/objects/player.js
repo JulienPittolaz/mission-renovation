@@ -19,8 +19,8 @@ class Player extends Phaser.Sprite {
 		this.jumping = false;
 		this.health = 3;
 		this.alive = true;
-		this.height = 40;
-		this.width = 36;
+		//this.height = 40;
+		//this.width = 36;
 
 		this.game.input.onTap.add(function() {
 			jump(this);

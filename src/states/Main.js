@@ -8,7 +8,7 @@ class Main extends Phaser.State {
 	create() {
 		this.game.camera.fade('#000000', 1, true);
 		this.game.camera.flash('#000000', 500, true);
-		this.music = this.game.sound.play('song', 0.6);
+		this.music = this.game.sound.play('song', 0.6, true);
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -60,7 +60,8 @@ class Main extends Phaser.State {
 		this.foreground.renderSettings.enableScrollDelta = false;
 		this.foreground.bringToTop();*/
 
-		this.flag = this.game.add.sprite(this.game.world.width - 200, 344, 'drapeau', 0);
+		this.flag = this.game.add.sprite(this.game.world.width - 200, 434, 'drapeau', 0);
+		this.chair = this.game.add.sprite(this.game.world.width - 160, this.game.world.height - 160, 'chair', 0);
 
 		this.map.setCollisionByExclusion([], true, 'platform');
 		this.map.setCollisionByExclusion([], true, 'water');
@@ -75,6 +76,7 @@ class Main extends Phaser.State {
 
 		//MERE ROYAUME
 		this.player = new Player(this.game, 0, 600, 'mereRoyaume', 0);
+		//this.player = new Player(this.game, this.game.world.width - 30, 600, 'mereRoyaume', 0);
 		this.game.camera.follow(this.player);
 		this.characters.add(this.player);
 		this.life = this.game.add.existing(new LifeManager(this.game, 45, 30, 'hearts', this.player.health, this.player.health));
@@ -90,9 +92,6 @@ class Main extends Phaser.State {
 
 		this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
 		this.gare.bringToTop();
-
-		console.log(this.game);
-		
 	}
 
 	update() {
@@ -100,12 +99,10 @@ class Main extends Phaser.State {
 		//this.background.tilePosition.x -= 0.6;
 		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 
-		/*var playerHitFlag = this.flag.overlap(this.player);
-		if (playerHitFlag) {
-			setTimeout(function () {
-				console.log('NIVEAU FINI !!!');
-			}, 500);
-		}*/
+		var playerHitChair = this.flag.overlap(this.player);
+		if (playerHitChair) {
+
+		}
 
 
 		var playerHitWater = this.game.physics.arcade.collide(this.player, this.water, function (player, water) {
@@ -139,7 +136,7 @@ class Main extends Phaser.State {
 	}
 
 	render() {
-		this.game.debug.spriteInfo(this.player, 32, 32);
+		//this.game.debug.spriteInfo(this.player, 32, 32);
 	}
 
 }

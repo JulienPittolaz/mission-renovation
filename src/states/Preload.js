@@ -33,6 +33,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('geneva-building3', 'assets/geneva-building3.png');
 		this.game.load.image('geneva-building4', 'assets/geneva-building4.png');
 		this.game.load.image('drapeau', 'assets/drapeau.png');
+		this.game.load.image('chair', 'assets/chaise.png');
 		this.game.load.image('building', 'assets/building1.png');
 		this.game.load.image('sky', 'assets/sky.png');
 		this.game.load.image('horloge-fleurie', 'assets/horloge-fleurie.png');
