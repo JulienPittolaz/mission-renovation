@@ -8,6 +8,7 @@ class GameTitle extends Phaser.State {
 		this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'splash1');
 		this.continueButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() - 40,
 			'start', function() {
+				self.game.sound.play('clic');
 				self.camera.fade('#000000');
 				self.camera.onFadeComplete.add(self.startIntro, self);
 			}, null, null, null, 1, 0);

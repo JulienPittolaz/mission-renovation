@@ -10640,8 +10640,8 @@ var Player = (function (_Phaser$Sprite) {
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
 		this.body.acceleration.x = 10000;
-		this.body.velocity.x = 160;
-		this.body.maxVelocity.x = 160;
+		this.body.velocity.x = 160; //160
+		this.body.maxVelocity.x = 160; //160
 		this.inputEnabled = true;
 		this.jumpTimer = 0;
 		this.jumping = false;
@@ -10677,6 +10677,8 @@ var Player = (function (_Phaser$Sprite) {
 			var self = this;
 			this.alive = false;
 			this.animations.stop('run');
+			this.game.sound.stopAll('song');
+			this.game.sound.play('gameover');
 			setTimeout(function () {
 				self.body.velocity.x = 0;
 				self.body.maxVelocity.x = 0;
@@ -10689,6 +10691,7 @@ var Player = (function (_Phaser$Sprite) {
 			text.anchor.setTo(0.5);
 			text.fixedToCamera = true;
 			var restartButton = this.game.add.button((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() / 2, 'restart', function () {
+				self.game.sound.play('clic');
 				self.game.camera.fade('#000000');
 				var thegame = self.game;
 				self.game.camera.onFadeComplete.add(function () {
@@ -10704,7 +10707,7 @@ var Player = (function (_Phaser$Sprite) {
 		value: function getHurt() {
 
 			this.health -= 1;
-
+			this.game.sound.play('hurt');
 			if (this.health === 0) {
 				this.die();
 			}
@@ -10718,9 +10721,9 @@ var Player = (function (_Phaser$Sprite) {
 function jump(player) {
 
 	if (player.body.blocked.down && player.alive) {
-
+		player.game.sound.play('jump');
 		if (player.body.blocked.right) {
-			player.body.gravity.x = 600;
+			//player.body.gravity.x = 600;
 		}
 		player.body.velocity.y = -700;
 	}
@@ -10964,6 +10967,8 @@ var Relique = (function (_Phaser$Sprite) {
 							} else if (self.timerText.text == "0") {
 								self.timerText.kill();
 								self.game.paused = false;
+								self.game.sound.play('clic');
+								self.game.sound.play('loot');
 								clearInterval(timer);
 							}
 						}, 1000);
@@ -11143,6 +11148,7 @@ var GameTitle = (function (_Phaser$State) {
 			this.game.stage.backgroundColor = '#d5f6ff';
 			this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'splash1');
 			this.continueButton = this.game.add.button((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() - 40, 'start', function () {
+				self.game.sound.play('clic');
 				self.camera.fade('#000000');
 				self.camera.onFadeComplete.add(self.startIntro, self);
 			}, null, null, null, 1, 0);
@@ -11220,6 +11226,7 @@ var Intro = (function (_Phaser$State) {
 			});
 			this.text.anchor.set(0.5);
 			var next = this.game.add.button((0, _jquery2['default'])('canvas').width() - 115, (0, _jquery2['default'])('canvas').height() - 40, 'next', function () {
+				self.game.sound.play('clic');
 				if (self.page == texts.length - 1) {
 					self.camera.fade('#000000');
 					self.camera.onFadeComplete.add(self.startGame, self);
@@ -11293,6 +11300,7 @@ var Main = (function (_Phaser$State) {
 		value: function create() {
 			this.game.camera.fade('#000000', 1, true);
 			this.game.camera.flash('#000000', 500, true);
+			this.music = this.game.sound.play('song', 0.6);
 
 			//Enable Arcade Physics
 			this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -11305,7 +11313,6 @@ var Main = (function (_Phaser$State) {
 			//ENVIRONNEMENT
 
 			this.map = this.game.add.tilemap("niveau1");
-			console.log(this.map);
 
 			//this.map.addTilesetImage('ground_tileset', 'tilesn1');
 			//this.map.addTilesetImage('jetEau', 'jetEau');
@@ -11338,7 +11345,11 @@ var Main = (function (_Phaser$State) {
 			this.grounds.resizeWorld();
 			this.grounds.renderSettings.enableScrollDelta = false;
 
-			//this.flag = this.game.add.sprite(this.game.world.width - 200, 416, 'drapeau', 0);
+			/*this.foreground = this.map.createLayer('foreground', this.game.world.width, this.game.world.height);
+   this.foreground.renderSettings.enableScrollDelta = false;
+   this.foreground.bringToTop();*/
+
+			this.flag = this.game.add.sprite(this.game.world.width - 200, 344, 'drapeau', 0);
 
 			this.map.setCollisionByExclusion([], true, 'platform');
 			this.map.setCollisionByExclusion([], true, 'water');
@@ -11348,21 +11359,26 @@ var Main = (function (_Phaser$State) {
 			this.ennemies = this.game.add.group();
 			this.reliques = this.game.add.group();
 			//relique
-			this.reliques.add(new _objectsRelique2['default'](this.game, 1240, 500, 'mobiliteReduite', 1));
+			this.reliques.add(new _objectsRelique2['default'](this.game, 1540, 500, 'mobiliteReduite', 1));
 
 			//MERE ROYAUME
-			this.player = new _objectsPlayer2['default'](this.game, 0, 200, 'mereRoyaume', 0);
+			this.player = new _objectsPlayer2['default'](this.game, 0, 600, 'mereRoyaume', 0);
 			this.game.camera.follow(this.player);
 			this.characters.add(this.player);
 			this.life = this.game.add.existing(new _objectsLifeManager2['default'](this.game, 45, 30, 'hearts', this.player.health, this.player.health));
 			this.life.fixedToCamera = true;
 
 			//ENNEMIES
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 200, 300, 'mushroom', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 680, 300, 'poivron', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1120, 300, 'mushroom', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1480, 300, 'ail', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1800, 300, 'poivron', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 200, 630, 'mushroom', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 680, 630, 'poivron', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1120, 630, 'mushroom', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1480, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1800, 630, 'poivron', 4));
+
+			this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
+			this.gare.bringToTop();
+
+			console.log(this.game);
 		}
 	}, {
 		key: 'update',
@@ -11397,6 +11413,8 @@ var Main = (function (_Phaser$State) {
 					if (player.bottom > ennemi.top) {
 						player.getHurt();
 						this.life.setHealth(player.health);
+					} else {
+						this.game.sound.play('kill');
 					}
 					ennemi.die();
 				}
@@ -11404,7 +11422,9 @@ var Main = (function (_Phaser$State) {
 		}
 	}, {
 		key: 'render',
-		value: function render() {}
+		value: function render() {
+			this.game.debug.spriteInfo(this.player, 32, 32);
+		}
 	}]);
 
 	return Main;
@@ -11456,13 +11476,14 @@ var Preload = (function (_Phaser$State) {
 			this.game.load.spritesheet('hearts', 'assets/hearts.png', 56, 16);
 			this.game.load.spritesheet('poivron', 'assets/poivron.png', 32, 32);
 			this.game.load.spritesheet('mobiliteReduite', 'assets/mobiliteReduite.png', 32, 32);
-			this.game.load.tilemap('niveau1', 'assets/map1.json', null, Phaser.Tilemap.TILED_JSON);
+			this.game.load.tilemap('niveau1', 'assets/map3.json', null, Phaser.Tilemap.TILED_JSON);
 			this.game.load.tilemap('niveau2', 'assets/niveau1.json', null, Phaser.Tilemap.TILED_JSON);
 			this.game.load.spritesheet('tilesn1', 'assets/tileset-v3.png', 32, 32);
 			this.game.load.spritesheet('tilesn2', 'assets/tileset-v2.png', 32, 32);
 			this.game.load.spritesheet('background', 'assets/tileset-immeubles.png', 32, 32);
 			this.game.load.spritesheet('water', 'assets/liquidWater.png', 32, 32);
 			this.game.load.spritesheet('gare', 'assets/gareCornavin.png', 32, 32);
+			this.game.load.image('gareCache', 'assets/gareCornavin-gauche.png');
 			this.game.load.spritesheet('arbre', 'assets/arbre-v2.png', 32, 32);
 			this.game.load.image('jetEau', 'assets/jetEau.png');
 			this.game.load.image('long-building', 'assets/long-building.png');
@@ -11474,11 +11495,21 @@ var Preload = (function (_Phaser$State) {
 			this.game.load.image('building', 'assets/building1.png');
 			this.game.load.image('sky', 'assets/sky.png');
 			this.game.load.image('horloge-fleurie', 'assets/horloge-fleurie.png');
+
+			//sounds
+			this.game.load.audio('clic', 'assets/sounds/clic.mp3');
+			this.game.load.audio('gameover', 'assets/sounds/gameover.wav');
+			this.game.load.audio('jump', 'assets/sounds/jump.wav');
+			this.game.load.audio('kill', 'assets/sounds/kill.wav');
+			this.game.load.audio('loot', 'assets/sounds/loot.wav');
+			this.game.load.audio('song', 'assets/sounds/song.wav');
+			this.game.load.audio('hurt', 'assets/sounds/hurt.wav');
 		}
 	}, {
 		key: 'create',
 		value: function create() {
 			//NOTE: Change to GameTitle if required
+			//this.game.state.start("Main");
 			this.game.state.start("GameTitle");
 		}
 	}]);

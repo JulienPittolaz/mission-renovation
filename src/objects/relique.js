@@ -5,7 +5,7 @@ class Relique extends Phaser.Sprite {
 	constructor(game, x, y, key, frame) {
 		super(game, x, y, key, frame);
 		const self = this;
-		
+
 		this.animations.add('run', [0, 1, 2, 3, 4, 5], 6, true);
 		this.animations.play('run');
 		this.game.physics.arcade.enable(this);
@@ -58,16 +58,18 @@ class Relique extends Phaser.Sprite {
 				this.continueButton.kill();
 				this.textPopup.kill();
 				this.body.checkCollision = false;
-				let timer = setInterval(function() {
-					if(self.timerText.text == "3") {
+				let timer = setInterval(function () {
+					if (self.timerText.text == "3") {
 						self.timerText.text = "2";
-					} else if(self.timerText.text == "2") {
+					} else if (self.timerText.text == "2") {
 						self.timerText.text = "1";
-					} else if(self.timerText.text == "1") {
+					} else if (self.timerText.text == "1") {
 						self.timerText.text = "0";
-					} else if(self.timerText.text == "0") {
+					} else if (self.timerText.text == "0") {
 						self.timerText.kill();
 						self.game.paused = false;
+						self.game.sound.play('clic');
+						self.game.sound.play('loot');
 						clearInterval(timer);
 					}
 				}, 1000);

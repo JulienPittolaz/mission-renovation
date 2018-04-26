@@ -31,6 +31,7 @@ class Intro extends Phaser.State {
 		let next = this.game.add.button($('canvas').width() - 115, $('canvas').height() - 40,
 		'next',
 		function() {
+			self.game.sound.play('clic');
 			if(self.page == texts.length - 1) {
 				self.camera.fade('#000000');
 				self.camera.onFadeComplete.add(self.startGame, self);

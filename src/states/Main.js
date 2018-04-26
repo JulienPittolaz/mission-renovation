@@ -8,6 +8,7 @@ class Main extends Phaser.State {
 	create() {
 		this.game.camera.fade('#000000', 1, true);
 		this.game.camera.flash('#000000', 500, true);
+		this.music = this.game.sound.play('song', 0.6);
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -21,7 +22,6 @@ class Main extends Phaser.State {
 		//ENVIRONNEMENT
 
 		this.map = this.game.add.tilemap("niveau1");
-		console.log(this.map);
 
 
 		//this.map.addTilesetImage('ground_tileset', 'tilesn1');
@@ -56,7 +56,11 @@ class Main extends Phaser.State {
 		this.grounds.resizeWorld();
 		this.grounds.renderSettings.enableScrollDelta = false;
 
-		//this.flag = this.game.add.sprite(this.game.world.width - 200, 416, 'drapeau', 0);
+		/*this.foreground = this.map.createLayer('foreground', this.game.world.width, this.game.world.height);
+		this.foreground.renderSettings.enableScrollDelta = false;
+		this.foreground.bringToTop();*/
+
+		this.flag = this.game.add.sprite(this.game.world.width - 200, 344, 'drapeau', 0);
 
 		this.map.setCollisionByExclusion([], true, 'platform');
 		this.map.setCollisionByExclusion([], true, 'water');
@@ -66,11 +70,11 @@ class Main extends Phaser.State {
 		this.ennemies = this.game.add.group();
 		this.reliques = this.game.add.group();
 		//relique
-		this.reliques.add(new Relique(this.game, 1240, 500, 'mobiliteReduite', 1));
+		this.reliques.add(new Relique(this.game, 1540, 500, 'mobiliteReduite', 1));
 
 
 		//MERE ROYAUME
-		this.player = new Player(this.game, 0, 200, 'mereRoyaume', 0);
+		this.player = new Player(this.game, 0, 600, 'mereRoyaume', 0);
 		this.game.camera.follow(this.player);
 		this.characters.add(this.player);
 		this.life = this.game.add.existing(new LifeManager(this.game, 45, 30, 'hearts', this.player.health, this.player.health));
@@ -78,14 +82,17 @@ class Main extends Phaser.State {
 
 
 		//ENNEMIES
-		this.ennemies.add(new Ennemi(this.game, 200, 300, 'mushroom', 4));
-		this.ennemies.add(new Ennemi(this.game, 680, 300, 'poivron', 4));
-		this.ennemies.add(new Ennemi(this.game, 1120, 300, 'mushroom', 4));
-		this.ennemies.add(new Ennemi(this.game, 1480, 300, 'ail', 4));
-		this.ennemies.add(new Ennemi(this.game, 1800, 300, 'poivron', 4));
+		this.ennemies.add(new Ennemi(this.game, 200, 630, 'mushroom', 4));
+		this.ennemies.add(new Ennemi(this.game, 680, 630, 'poivron', 4));
+		this.ennemies.add(new Ennemi(this.game, 1120, 630, 'mushroom', 4));
+		this.ennemies.add(new Ennemi(this.game, 1480, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 1800, 630, 'poivron', 4));
 
+		this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
+		this.gare.bringToTop();
 
-
+		console.log(this.game);
+		
 	}
 
 	update() {
@@ -121,6 +128,8 @@ class Main extends Phaser.State {
 				if (player.bottom > ennemi.top) {
 					player.getHurt();
 					this.life.setHealth(player.health);
+				} else {
+					this.game.sound.play('kill');
 				}
 				ennemi.die();
 			}
@@ -130,6 +139,7 @@ class Main extends Phaser.State {
 	}
 
 	render() {
+		this.game.debug.spriteInfo(this.player, 32, 32);
 	}
 
 }

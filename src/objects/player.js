@@ -12,8 +12,8 @@ class Player extends Phaser.Sprite {
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
 		this.body.acceleration.x = 10000;
-		this.body.velocity.x = 160;
-		this.body.maxVelocity.x = 160;
+		this.body.velocity.x = 160; //160
+		this.body.maxVelocity.x = 160; //160
 		this.inputEnabled = true;
 		this.jumpTimer = 0;
 		this.jumping = false;
@@ -47,6 +47,8 @@ class Player extends Phaser.Sprite {
 		let self = this;
 		this.alive = false;
 		this.animations.stop('run');
+		this.game.sound.stopAll('song');
+		this.game.sound.play('gameover');
 		setTimeout(function(){
 			self.body.velocity.x = 0;
 			self.body.maxVelocity.x = 0;
@@ -62,6 +64,7 @@ class Player extends Phaser.Sprite {
 		let restartButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() / 2,
 		'restart',
 		function() {
+			self.game.sound.play('clic');
 			self.game.camera.fade('#000000');
 			let thegame = self.game;
 			self.game.camera.onFadeComplete.add(function() {
@@ -76,7 +79,7 @@ class Player extends Phaser.Sprite {
 	getHurt() {
 		
 		this.health -= 1;
-		
+		this.game.sound.play('hurt');
 		if (this.health === 0) {
 			this.die();
 		}
@@ -88,9 +91,9 @@ class Player extends Phaser.Sprite {
 function jump(player) {
 	
 	if(player.body.blocked.down && player.alive) {
-		
+		player.game.sound.play('jump');
 		if(player.body.blocked.right) {
-			player.body.gravity.x = 600;
+			//player.body.gravity.x = 600;
 		}
 		player.body.velocity.y = -700;
 	}
