@@ -67,7 +67,7 @@ class Player extends Phaser.Sprite {
 			self.game.camera.onFadeComplete.add(function() {
 				thegame.state.start("Main");	
 			}, self);
-		});
+		}, null, null, null, 1, 0);
 		restartButton.anchor.setTo(0.5);
 		restartButton.scale.set(0.2);
 		restartButton.fixedToCamera = true;

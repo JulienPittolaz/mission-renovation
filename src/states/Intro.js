@@ -3,6 +3,8 @@ import $ from 'jquery';
 class Intro extends Phaser.State {
 
 	create() {
+		this.game.camera.fade('#000000', 1, true);
+		this.game.camera.flash('#000000', 500, true);
 		const texts = [
 			"Le bâtiment du grand Conseil, l’organe qui crée et valide les lois du canton, n’a pas été rénové depuis 1962.",
 			"C’est pourquoi le Grand Conseil a décidé de faire appel à la Mère Royaume qu’ils jugent suffisamment courageuse pour relever un défi majeur. Elle aura besoin de ton aide pour récupérer des reliques, protégées par divers monstres, qui permettront de rénover la salle. ",
@@ -36,7 +38,7 @@ class Intro extends Phaser.State {
 				self.page ++;
 				self.text.text = texts[self.page];
 			}
-		});
+		}, null, null, null, 1, 0);
 		next.anchor.setTo(0.5);
 
 	}

@@ -45,7 +45,7 @@ class Relique extends Phaser.Sprite {
 			this.looted = true;
 			this.phase1.start();
 			this.game.paused = true;
-			this.openPopup("Bravo, vous venez de trouver la fonctionnalité blabla ! \n BALBALBA");
+			this.openPopup("Bravo ! Vous avez récupérer l'accès aux personnes à mobilité réduite ! Une fois ramenée au Grand Conseil, tout le monde pourra accèder à la nouvelle salle !");
 		}
 	}
 
@@ -53,6 +53,7 @@ class Relique extends Phaser.Sprite {
 		const self = this;
 		if (this.game.paused) {
 			if (this.continueButton.getBounds().contains(this.game.input.x, this.game.input.y)) {
+				this.continueButton.setFrame(1);
 				this.box.kill();
 				this.continueButton.kill();
 				this.textPopup.kill();
@@ -88,7 +89,7 @@ class Relique extends Phaser.Sprite {
 		this.box.fixedToCamera = true;
 		this.box.anchor.set(0.5);
 		this.continueButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() - 40,
-			'resume');
+			'resume', null, null, null, null, 1, 0);
 		this.continueButton.fixedToCamera = true;
 		this.continueButton.anchor.setTo(0.5);
 		this.continueButton.scale.set(0.2);
