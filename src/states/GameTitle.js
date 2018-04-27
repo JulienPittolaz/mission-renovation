@@ -3,10 +3,12 @@ import $ from 'jquery';
 class GameTitle extends Phaser.State {
 
 	create() {
+		console.log(this);
+		
 		let self = this;
-		this.game.stage.backgroundColor = '#d5f6ff';
-		this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'splash1');
-		this.continueButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() - 40,
+		this.background =this.game.add.image(0, 0, 'splash1');
+		this.background.scale.setTo(0.35);
+		this.continueButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() - 80,
 			'start', function() {
 				self.game.sound.play('clic');
 				self.camera.fade('#000000');

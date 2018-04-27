@@ -18,7 +18,7 @@ class Ennemi extends Phaser.Sprite {
 		this.startWalkRight = this.game.add.tween(this)
 			.to({
 				x: [this.x + 60]
-			}, 1 * Phaser.Timer.SECOND);
+			}, 1 * Phaser.Timer.SECOND, null, false, Math.random() * 500);
 
 		this.walkLeft = this.game.add.tween(this)
 		.to({

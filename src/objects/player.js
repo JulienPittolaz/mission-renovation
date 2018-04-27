@@ -8,6 +8,7 @@ class Player extends Phaser.Sprite {
 		this.body.collideWorldBounds = true;
 		this.animations.add('run', [0, 1, 2, 3], 12, true);
 		this.animations.play('run');
+		this.animations.add('sit', [5, 6, 7, 8, 9, 10, 11], 15, false);
 		this.body.bounce.y = 0.1;
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
@@ -19,11 +20,16 @@ class Player extends Phaser.Sprite {
 		this.jumping = false;
 		this.health = 3;
 		this.alive = true;
-		//this.height = 40;
-		//this.width = 36;
+		this.height = 55;
+		this.width = 45;
+		this.hitFlag = false;
 
 		this.game.input.onTap.add(function() {
-			jump(this);
+			console.log(this.position.x);
+			
+			if(this.position.x < 8300) {
+				jump(this);
+			}
 		}, this);
 
 		this.hurtAnimation = this.game.add.tween(this)
@@ -37,7 +43,7 @@ class Player extends Phaser.Sprite {
 		if(!this.body.blocked.down) {
 			this.animations.stop('run');
 		} else {
-			if(this.alive) {
+			if(this.alive && !this.hitFlag) {
 				this.animations.play('run');
 			}
 		}

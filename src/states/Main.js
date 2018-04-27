@@ -2,6 +2,7 @@ import Player from '../objects/Player';
 import Ennemi from '../objects/ennemi';
 import Relique from '../objects/relique';
 import LifeManager from '../objects/lifeManager';
+import $ from 'jquery';
 
 class Main extends Phaser.State {
 
@@ -16,12 +17,12 @@ class Main extends Phaser.State {
 
 		//BACKGROUND
 		this.game.stage.backgroundColor = '#d5f6ff';
-		this.background = this.game.add.tileSprite(0, this.game.height * 0.3, this.game.world.width * 100, 1000, 'sky');
+		this.background = this.game.add.tileSprite(0, this.game.height * 0.8, this.game.world.width * 100, 1000, 'sky');
 
 
 		//ENVIRONNEMENT
 
-		this.map = this.game.add.tilemap("niveau1");
+		this.map = this.game.add.tilemap("tilemap");
 
 
 		//this.map.addTilesetImage('ground_tileset', 'tilesn1');
@@ -35,12 +36,20 @@ class Main extends Phaser.State {
 		//this.map.addTilesetImage('geneva-building3', 'geneva-building3');
 		//this.map.addTilesetImage('geneva-building4', 'geneva-building4');
 		//this.map.addTilesetImage('horloge-fleurie', 'horloge-fleurie');
-		this.map.addTilesetImage('liquidWater', 'water');
+		/*this.map.addTilesetImage('liquidWater', 'water');
 		this.map.addTilesetImage('tileset-immeubles', 'background');
 		this.map.addTilesetImage('gare', 'gare');
 		this.map.addTilesetImage('tileset-v3', 'tilesn1');
 		this.map.addTilesetImage('tileset-v2', 'tilesn2');
-		this.map.addTilesetImage('arbre-v2', 'arbre');
+		this.map.addTilesetImage('arbre-v2', 'arbre');*/
+
+		//TIlESETS
+		this.map.addTilesetImage('tileset-building', 'buildings');
+		this.map.addTilesetImage('tileset-elementsville', 'ville');
+		this.map.addTilesetImage('tileset-nature', 'nature');
+		this.map.addTilesetImage('tileset-V5', 'platform');
+		this.map.addTilesetImage('tileset-water', 'water');
+		this.map.addTilesetImage('tileset-gareCornavin-V2', 'gare');
 
 
 		this.env = this.map.createLayer('background', this.game.world.width, this.game.world.height);
@@ -50,10 +59,12 @@ class Main extends Phaser.State {
 
 		this.water = this.map.createLayer('water', this.game.world.width, this.game.world.height);
 		this.water.renderSettings.enableScrollDelta = false;
+		this.env.wrap = true;
 		this.water.resizeWorld();
 
-		this.grounds = this.map.createLayer('platform', this.game.world.width, this.game.world.height);
+		this.grounds = this.map.createLayer('PLATFORM V2', this.game.world.width, this.game.world.height);
 		this.grounds.resizeWorld();
+		this.env.wrap = true;
 		this.grounds.renderSettings.enableScrollDelta = false;
 
 		/*this.foreground = this.map.createLayer('foreground', this.game.world.width, this.game.world.height);
@@ -63,7 +74,7 @@ class Main extends Phaser.State {
 		this.flag = this.game.add.sprite(this.game.world.width - 200, 434, 'drapeau', 0);
 		this.chair = this.game.add.sprite(this.game.world.width - 160, this.game.world.height - 160, 'chair', 0);
 
-		this.map.setCollisionByExclusion([], true, 'platform');
+		this.map.setCollisionByExclusion([], true, 'PLATFORM V2');
 		this.map.setCollisionByExclusion([], true, 'water');
 
 		//CHARACTERS
@@ -71,12 +82,12 @@ class Main extends Phaser.State {
 		this.ennemies = this.game.add.group();
 		this.reliques = this.game.add.group();
 		//relique
-		this.reliques.add(new Relique(this.game, 1540, 500, 'mobiliteReduite', 1));
+		this.reliques.add(new Relique(this.game, 4500, 550, 'mobiliteReduite', 1));
 
 
 		//MERE ROYAUME
 		this.player = new Player(this.game, 0, 600, 'mereRoyaume', 0);
-		//this.player = new Player(this.game, this.game.world.width - 30, 600, 'mereRoyaume', 0);
+		//this.player = new Player(this.game, this.game.world.width - 650, 600, 'mereRoyaume', 0);
 		this.game.camera.follow(this.player);
 		this.characters.add(this.player);
 		this.life = this.game.add.existing(new LifeManager(this.game, 45, 30, 'hearts', this.player.health, this.player.health));
@@ -84,11 +95,18 @@ class Main extends Phaser.State {
 
 
 		//ENNEMIES
-		this.ennemies.add(new Ennemi(this.game, 200, 630, 'mushroom', 4));
 		this.ennemies.add(new Ennemi(this.game, 680, 630, 'poivron', 4));
-		this.ennemies.add(new Ennemi(this.game, 1120, 630, 'mushroom', 4));
-		this.ennemies.add(new Ennemi(this.game, 1480, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 1380, 630, 'ail', 4));
 		this.ennemies.add(new Ennemi(this.game, 1800, 630, 'poivron', 4));
+		this.ennemies.add(new Ennemi(this.game, 2650, 630, 'poivron', 4));
+		this.ennemies.add(new Ennemi(this.game, 3360, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 4560, 630, 'poivron', 4));
+		this.ennemies.add(new Ennemi(this.game, 4580, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 4590, 630, 'mushroom', 4));
+		this.ennemies.add(new Ennemi(this.game, 5900, 500, 'mushroom', 4));
+		this.ennemies.add(new Ennemi(this.game, 6260, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 7000, 630, 'ail', 4));
+		this.ennemies.add(new Ennemi(this.game, 8300, 630, 'mushroom', 4));
 
 		this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
 		this.gare.bringToTop();
@@ -96,17 +114,70 @@ class Main extends Phaser.State {
 
 	update() {
 		var self = this;
-		//this.background.tilePosition.x -= 0.6;
+		this.background.tilePosition.x -= 0.6;
 		var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 
-		var playerHitChair = this.flag.overlap(this.player);
+		var playerHitChair = this.chair.overlap(this.player);
 		if (playerHitChair) {
+			
+			if ((Math.floor(this.player.position.x) == this.chair.position.x || Math.floor(this.player.position.x) + 1 == this.chair.position.x || Math.floor(this.player.position.x) - 1 == this.chair.position.x) && !this.player.hitFlag ) {
+				console.log(2);
+				this.player.hitFlag = true;
+				this.player.body.velocity.x = 0;
+				this.player.body.acceleration.x = 0;
+				this.player.body.acceleration.y = 0;
+				this.player.body.gravity.y = 0;
+				this.player.body.gravity.x = 0;
+				this.player.animations.stop('run');
+				this.chair.kill();
+				this.game.sound.stopAll();
+				this.game.sound.play('success');
+				this.player.animations.play('sit');
+				this.game.camera.unfollow();
+				setTimeout(function () {
+					self.finish = self.game.add.tween(self.player)
+						.to({
+							x: [self.game.world.width + 800],
+							y: 100
+						}, 3 * Phaser.Timer.SECOND, Phaser.Easing.Cubic.In).start();
 
+					self.finish.onComplete.add(function () {
+						self.player.alpha = 0;
+
+						self.box = self.game.add.image($('canvas').width() / 2, $('canvas').height() / 2 - 30, 'intro-box', 0);
+						self.box.anchor.set(0.5);
+						let text = "Tu es arrivé au jardin anglais et tu as récupéré la relique. La chaise magique du grand conseil va te transporter jusqu'un lieu de la prochaine relique de la salle !"
+						self.text = self.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 10, text, {
+							font: "Minecraft",
+							fontSize: 18,
+							fill: 'white',
+							align: 'center',
+							wordWrap: true,
+							wordWrapWidth: 440
+						});
+						self.text.anchor.set(0.5);
+						self.box.fixedToCamera = true;
+						self.text.fixedToCamera = true;
+						self.title = self.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 100, 'Bravo !', {
+							font: "Minecraft",
+							fontSize: 32,
+							fill: 'white',
+							align: 'center',
+							wordWrap: true,
+							wordWrapWidth: 440
+						});
+						self.title.anchor.set(0.5);
+						self.title.fixedToCamera = true;
+					});
+				}, 1500);
+				//RUN ANIMATION ASSIS
+				//ON COMPLETE
+			}
 		}
 
 
 		var playerHitWater = this.game.physics.arcade.collide(this.player, this.water, function (player, water) {
-			this.map.setCollisionBetween(1, 1000, false, 'water');
+			this.map.setCollisionByExclusion([], false, 'water');
 			if (player.alive) {
 				this.life.setHealth(0);
 				player.die();
@@ -136,7 +207,6 @@ class Main extends Phaser.State {
 	}
 
 	render() {
-		//this.game.debug.spriteInfo(this.player, 32, 32);
 	}
 
 }

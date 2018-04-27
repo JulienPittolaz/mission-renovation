@@ -10636,6 +10636,7 @@ var Player = (function (_Phaser$Sprite) {
 		this.body.collideWorldBounds = true;
 		this.animations.add('run', [0, 1, 2, 3], 12, true);
 		this.animations.play('run');
+		this.animations.add('sit', [5, 6, 7, 8, 9, 10, 11], 15, false);
 		this.body.bounce.y = 0.1;
 		this.body.gravity.y = 2000;
 		this.body.gravity.x = 0;
@@ -10647,11 +10648,16 @@ var Player = (function (_Phaser$Sprite) {
 		this.jumping = false;
 		this.health = 3;
 		this.alive = true;
-		//this.height = 40;
-		//this.width = 36;
+		this.height = 55;
+		this.width = 45;
+		this.hitFlag = false;
 
 		this.game.input.onTap.add(function () {
-			jump(this);
+			console.log(this.position.x);
+
+			if (this.position.x < 8300) {
+				jump(this);
+			}
 		}, this);
 
 		this.hurtAnimation = this.game.add.tween(this).to({
@@ -10666,7 +10672,7 @@ var Player = (function (_Phaser$Sprite) {
 			if (!this.body.blocked.down) {
 				this.animations.stop('run');
 			} else {
-				if (this.alive) {
+				if (this.alive && !this.hitFlag) {
 					this.animations.play('run');
 				}
 			}
@@ -10769,7 +10775,7 @@ var Ennemi = (function (_Phaser$Sprite) {
 
 		this.startWalkRight = this.game.add.tween(this).to({
 			x: [this.x + 60]
-		}, 1 * Phaser.Timer.SECOND);
+		}, 1 * Phaser.Timer.SECOND, null, false, Math.random() * 500);
 
 		this.walkLeft = this.game.add.tween(this).to({
 			x: [this.x - 60]
@@ -10940,7 +10946,7 @@ var Relique = (function (_Phaser$Sprite) {
 				this.looted = true;
 				this.phase1.start();
 				this.game.paused = true;
-				this.openPopup("Bravo ! Vous avez récupérer l'accès aux personnes à mobilité réduite ! Une fois ramenée au Grand Conseil, tout le monde pourra accèder à la nouvelle salle !");
+				this.openPopup("Bravo ! Vous avez récupére l'accès aux personnes à mobilité réduite ! Une fois ramenée au Grand Conseil, tout le monde pourra accèder à la nouvelle salle !");
 			}
 		}
 	}, {
@@ -11144,10 +11150,12 @@ var GameTitle = (function (_Phaser$State) {
 	_createClass(GameTitle, [{
 		key: 'create',
 		value: function create() {
+			console.log(this);
+
 			var self = this;
-			this.game.stage.backgroundColor = '#d5f6ff';
-			this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'splash1');
-			this.continueButton = this.game.add.button((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() - 40, 'start', function () {
+			this.background = this.game.add.image(0, 0, 'splash1');
+			this.background.scale.setTo(0.35);
+			this.continueButton = this.game.add.button((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() - 80, 'start', function () {
 				self.game.sound.play('clic');
 				self.camera.fade('#000000');
 				self.camera.onFadeComplete.add(self.startIntro, self);
@@ -11286,6 +11294,10 @@ var _objectsLifeManager = require('../objects/lifeManager');
 
 var _objectsLifeManager2 = _interopRequireDefault(_objectsLifeManager);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var Main = (function (_Phaser$State) {
 	_inherits(Main, _Phaser$State);
 
@@ -11308,11 +11320,11 @@ var Main = (function (_Phaser$State) {
 
 			//BACKGROUND
 			this.game.stage.backgroundColor = '#d5f6ff';
-			this.background = this.game.add.tileSprite(0, this.game.height * 0.3, this.game.world.width * 100, 1000, 'sky');
+			this.background = this.game.add.tileSprite(0, this.game.height * 0.8, this.game.world.width * 100, 1000, 'sky');
 
 			//ENVIRONNEMENT
 
-			this.map = this.game.add.tilemap("niveau1");
+			this.map = this.game.add.tilemap("tilemap");
 
 			//this.map.addTilesetImage('ground_tileset', 'tilesn1');
 			//this.map.addTilesetImage('jetEau', 'jetEau');
@@ -11325,12 +11337,20 @@ var Main = (function (_Phaser$State) {
 			//this.map.addTilesetImage('geneva-building3', 'geneva-building3');
 			//this.map.addTilesetImage('geneva-building4', 'geneva-building4');
 			//this.map.addTilesetImage('horloge-fleurie', 'horloge-fleurie');
-			this.map.addTilesetImage('liquidWater', 'water');
-			this.map.addTilesetImage('tileset-immeubles', 'background');
-			this.map.addTilesetImage('gare', 'gare');
-			this.map.addTilesetImage('tileset-v3', 'tilesn1');
-			this.map.addTilesetImage('tileset-v2', 'tilesn2');
-			this.map.addTilesetImage('arbre-v2', 'arbre');
+			/*this.map.addTilesetImage('liquidWater', 'water');
+   this.map.addTilesetImage('tileset-immeubles', 'background');
+   this.map.addTilesetImage('gare', 'gare');
+   this.map.addTilesetImage('tileset-v3', 'tilesn1');
+   this.map.addTilesetImage('tileset-v2', 'tilesn2');
+   this.map.addTilesetImage('arbre-v2', 'arbre');*/
+
+			//TIlESETS
+			this.map.addTilesetImage('tileset-building', 'buildings');
+			this.map.addTilesetImage('tileset-elementsville', 'ville');
+			this.map.addTilesetImage('tileset-nature', 'nature');
+			this.map.addTilesetImage('tileset-V5', 'platform');
+			this.map.addTilesetImage('tileset-water', 'water');
+			this.map.addTilesetImage('tileset-gareCornavin-V2', 'gare');
 
 			this.env = this.map.createLayer('background', this.game.world.width, this.game.world.height);
 			this.env.resizeWorld();
@@ -11339,10 +11359,12 @@ var Main = (function (_Phaser$State) {
 
 			this.water = this.map.createLayer('water', this.game.world.width, this.game.world.height);
 			this.water.renderSettings.enableScrollDelta = false;
+			this.env.wrap = true;
 			this.water.resizeWorld();
 
-			this.grounds = this.map.createLayer('platform', this.game.world.width, this.game.world.height);
+			this.grounds = this.map.createLayer('PLATFORM V2', this.game.world.width, this.game.world.height);
 			this.grounds.resizeWorld();
+			this.env.wrap = true;
 			this.grounds.renderSettings.enableScrollDelta = false;
 
 			/*this.foreground = this.map.createLayer('foreground', this.game.world.width, this.game.world.height);
@@ -11352,7 +11374,7 @@ var Main = (function (_Phaser$State) {
 			this.flag = this.game.add.sprite(this.game.world.width - 200, 434, 'drapeau', 0);
 			this.chair = this.game.add.sprite(this.game.world.width - 160, this.game.world.height - 160, 'chair', 0);
 
-			this.map.setCollisionByExclusion([], true, 'platform');
+			this.map.setCollisionByExclusion([], true, 'PLATFORM V2');
 			this.map.setCollisionByExclusion([], true, 'water');
 
 			//CHARACTERS
@@ -11360,22 +11382,29 @@ var Main = (function (_Phaser$State) {
 			this.ennemies = this.game.add.group();
 			this.reliques = this.game.add.group();
 			//relique
-			this.reliques.add(new _objectsRelique2['default'](this.game, 1540, 500, 'mobiliteReduite', 1));
+			this.reliques.add(new _objectsRelique2['default'](this.game, 4500, 550, 'mobiliteReduite', 1));
 
 			//MERE ROYAUME
 			this.player = new _objectsPlayer2['default'](this.game, 0, 600, 'mereRoyaume', 0);
-			//this.player = new Player(this.game, this.game.world.width - 30, 600, 'mereRoyaume', 0);
+			//this.player = new Player(this.game, this.game.world.width - 650, 600, 'mereRoyaume', 0);
 			this.game.camera.follow(this.player);
 			this.characters.add(this.player);
 			this.life = this.game.add.existing(new _objectsLifeManager2['default'](this.game, 45, 30, 'hearts', this.player.health, this.player.health));
 			this.life.fixedToCamera = true;
 
 			//ENNEMIES
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 200, 630, 'mushroom', 4));
 			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 680, 630, 'poivron', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1120, 630, 'mushroom', 4));
-			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1480, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1380, 630, 'ail', 4));
 			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 1800, 630, 'poivron', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 2650, 630, 'poivron', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 3360, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 4560, 630, 'poivron', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 4580, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 4590, 630, 'mushroom', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 5900, 500, 'mushroom', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 6260, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 7000, 630, 'ail', 4));
+			this.ennemies.add(new _objectsEnnemi2['default'](this.game, 8300, 630, 'mushroom', 4));
 
 			this.gare = this.game.add.image(0, this.game.world.height - 545, 'gareCache');
 			this.gare.bringToTop();
@@ -11384,14 +11413,68 @@ var Main = (function (_Phaser$State) {
 		key: 'update',
 		value: function update() {
 			var self = this;
-			//this.background.tilePosition.x -= 0.6;
+			this.background.tilePosition.x -= 0.6;
 			var playerHitPlatform = this.game.physics.arcade.collide(this.characters, this.grounds);
 
-			var playerHitChair = this.flag.overlap(this.player);
-			if (playerHitChair) {}
+			var playerHitChair = this.chair.overlap(this.player);
+			if (playerHitChair) {
+
+				if ((Math.floor(this.player.position.x) == this.chair.position.x || Math.floor(this.player.position.x) + 1 == this.chair.position.x || Math.floor(this.player.position.x) - 1 == this.chair.position.x) && !this.player.hitFlag) {
+					console.log(2);
+					this.player.hitFlag = true;
+					this.player.body.velocity.x = 0;
+					this.player.body.acceleration.x = 0;
+					this.player.body.acceleration.y = 0;
+					this.player.body.gravity.y = 0;
+					this.player.body.gravity.x = 0;
+					this.player.animations.stop('run');
+					this.chair.kill();
+					this.game.sound.stopAll();
+					this.game.sound.play('success');
+					this.player.animations.play('sit');
+					this.game.camera.unfollow();
+					setTimeout(function () {
+						self.finish = self.game.add.tween(self.player).to({
+							x: [self.game.world.width + 800],
+							y: 100
+						}, 3 * Phaser.Timer.SECOND, Phaser.Easing.Cubic.In).start();
+
+						self.finish.onComplete.add(function () {
+							self.player.alpha = 0;
+
+							self.box = self.game.add.image((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() / 2 - 30, 'intro-box', 0);
+							self.box.anchor.set(0.5);
+							var text = "Tu es arrivé au jardin anglais et tu as récupéré la relique. La chaise magique du grand conseil va te transporter jusqu'un lieu de la prochaine relique de la salle !";
+							self.text = self.game.add.text((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() / 2 - 10, text, {
+								font: "Minecraft",
+								fontSize: 18,
+								fill: 'white',
+								align: 'center',
+								wordWrap: true,
+								wordWrapWidth: 440
+							});
+							self.text.anchor.set(0.5);
+							self.box.fixedToCamera = true;
+							self.text.fixedToCamera = true;
+							self.title = self.game.add.text((0, _jquery2['default'])('canvas').width() / 2, (0, _jquery2['default'])('canvas').height() / 2 - 100, 'Bravo !', {
+								font: "Minecraft",
+								fontSize: 32,
+								fill: 'white',
+								align: 'center',
+								wordWrap: true,
+								wordWrapWidth: 440
+							});
+							self.title.anchor.set(0.5);
+							self.title.fixedToCamera = true;
+						});
+					}, 1500);
+					//RUN ANIMATION ASSIS
+					//ON COMPLETE
+				}
+			}
 
 			var playerHitWater = this.game.physics.arcade.collide(this.player, this.water, function (player, water) {
-				this.map.setCollisionBetween(1, 1000, false, 'water');
+				this.map.setCollisionByExclusion([], false, 'water');
 				if (player.alive) {
 					this.life.setHealth(0);
 					player.die();
@@ -11418,9 +11501,7 @@ var Main = (function (_Phaser$State) {
 		}
 	}, {
 		key: 'render',
-		value: function render() {
-			//this.game.debug.spriteInfo(this.player, 32, 32);
-		}
+		value: function render() {}
 	}]);
 
 	return Main;
@@ -11429,7 +11510,7 @@ var Main = (function (_Phaser$State) {
 exports['default'] = Main;
 module.exports = exports['default'];
 
-},{"../objects/Player":4,"../objects/ennemi":5,"../objects/lifeManager":6,"../objects/relique":7}],13:[function(require,module,exports){
+},{"../objects/Player":4,"../objects/ennemi":5,"../objects/lifeManager":6,"../objects/relique":7,"jquery":2}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -11458,7 +11539,7 @@ var Preload = (function (_Phaser$State) {
 		value: function preload() {
 
 			// GAME TITLE
-			this.game.load.image('splash1', 'assets/splash1.jpg');
+			this.game.load.image('splash1', 'assets/ecran-accueil.png');
 			this.game.load.image('intro-box', 'assets/intro-box.png');
 			this.game.load.spritesheet('restart', 'assets/bouton-recommencer-sprite.png', 1184, 256);
 			this.game.load.spritesheet('start', 'assets/bouton-commencer-sprite.png', 1184, 256);
@@ -11474,24 +11555,19 @@ var Preload = (function (_Phaser$State) {
 			this.game.load.spritesheet('mobiliteReduite', 'assets/mobiliteReduite.png', 32, 32);
 			this.game.load.tilemap('niveau1', 'assets/map3.json', null, Phaser.Tilemap.TILED_JSON);
 			this.game.load.tilemap('niveau2', 'assets/niveau1.json', null, Phaser.Tilemap.TILED_JSON);
-			this.game.load.spritesheet('tilesn1', 'assets/tileset-v3.png', 32, 32);
-			this.game.load.spritesheet('tilesn2', 'assets/tileset-v2.png', 32, 32);
-			this.game.load.spritesheet('background', 'assets/tileset-immeubles.png', 32, 32);
-			this.game.load.spritesheet('water', 'assets/liquidWater.png', 32, 32);
-			this.game.load.spritesheet('gare', 'assets/gareCornavin.png', 32, 32);
 			this.game.load.image('gareCache', 'assets/gareCornavin-gauche.png');
-			this.game.load.spritesheet('arbre', 'assets/arbre-v2.png', 32, 32);
-			this.game.load.image('jetEau', 'assets/jetEau.png');
-			this.game.load.image('long-building', 'assets/long-building.png');
-			this.game.load.image('geneva-building', 'assets/geneva-building1.png');
-			this.game.load.image('geneva-building2', 'assets/geneva-building2.png');
-			this.game.load.image('geneva-building3', 'assets/geneva-building3.png');
-			this.game.load.image('geneva-building4', 'assets/geneva-building4.png');
 			this.game.load.image('drapeau', 'assets/drapeau.png');
 			this.game.load.image('chair', 'assets/chaise.png');
-			this.game.load.image('building', 'assets/building1.png');
 			this.game.load.image('sky', 'assets/sky.png');
-			this.game.load.image('horloge-fleurie', 'assets/horloge-fleurie.png');
+
+			//FINAL
+			this.game.load.tilemap('tilemap', 'assets/map-v3.json', null, Phaser.Tilemap.TILED_JSON);
+			this.game.load.spritesheet('buildings', 'assets/tileset-building.png', 32, 32);
+			this.game.load.spritesheet('ville', 'assets/tileset-elementsville.png', 32, 32);
+			this.game.load.spritesheet('nature', 'assets/tileset-nature.png', 32, 32);
+			this.game.load.spritesheet('platform', 'assets/tileset-V5.png', 32, 32);
+			this.game.load.spritesheet('water', 'assets/tileset-water.png', 32, 32);
+			this.game.load.spritesheet('gare', 'assets/tileset-gareCornavin-V2.png', 32, 32);
 
 			//sounds
 			this.game.load.audio('clic', 'assets/sounds/clic.mp3');
@@ -11501,6 +11577,7 @@ var Preload = (function (_Phaser$State) {
 			this.game.load.audio('loot', 'assets/sounds/loot.wav');
 			this.game.load.audio('song', 'assets/sounds/song.wav');
 			this.game.load.audio('hurt', 'assets/sounds/hurt.wav');
+			this.game.load.audio('success', 'assets/sounds/success.wav');
 		}
 	}, {
 		key: 'create',

@@ -3,7 +3,7 @@ class Preload extends Phaser.State {
 	preload() {
 
 		// GAME TITLE
-		this.game.load.image('splash1', 'assets/splash1.jpg');
+		this.game.load.image('splash1', 'assets/ecran-accueil.png');
 		this.game.load.image('intro-box', 'assets/intro-box.png');
 		this.game.load.spritesheet('restart', 'assets/bouton-recommencer-sprite.png', 1184, 256);
 		this.game.load.spritesheet('start', 'assets/bouton-commencer-sprite.png', 1184, 256);
@@ -19,24 +19,19 @@ class Preload extends Phaser.State {
 		this.game.load.spritesheet('mobiliteReduite', 'assets/mobiliteReduite.png', 32, 32);
 		this.game.load.tilemap('niveau1', 'assets/map3.json', null, Phaser.Tilemap.TILED_JSON);
 		this.game.load.tilemap('niveau2', 'assets/niveau1.json', null, Phaser.Tilemap.TILED_JSON);
-		this.game.load.spritesheet('tilesn1', 'assets/tileset-v3.png', 32, 32);
-		this.game.load.spritesheet('tilesn2', 'assets/tileset-v2.png', 32, 32);
-		this.game.load.spritesheet('background', 'assets/tileset-immeubles.png', 32, 32);
-		this.game.load.spritesheet('water', 'assets/liquidWater.png', 32, 32);
-		this.game.load.spritesheet('gare', 'assets/gareCornavin.png', 32, 32);
 		this.game.load.image('gareCache', 'assets/gareCornavin-gauche.png');
-		this.game.load.spritesheet('arbre', 'assets/arbre-v2.png', 32, 32);
-		this.game.load.image('jetEau', 'assets/jetEau.png');
-		this.game.load.image('long-building', 'assets/long-building.png');
-		this.game.load.image('geneva-building', 'assets/geneva-building1.png');
-		this.game.load.image('geneva-building2', 'assets/geneva-building2.png');
-		this.game.load.image('geneva-building3', 'assets/geneva-building3.png');
-		this.game.load.image('geneva-building4', 'assets/geneva-building4.png');
 		this.game.load.image('drapeau', 'assets/drapeau.png');
 		this.game.load.image('chair', 'assets/chaise.png');
-		this.game.load.image('building', 'assets/building1.png');
 		this.game.load.image('sky', 'assets/sky.png');
-		this.game.load.image('horloge-fleurie', 'assets/horloge-fleurie.png');
+
+		//FINAL
+		this.game.load.tilemap('tilemap', 'assets/map-v3.json', null, Phaser.Tilemap.TILED_JSON);
+		this.game.load.spritesheet('buildings', 'assets/tileset-building.png', 32, 32);
+		this.game.load.spritesheet('ville', 'assets/tileset-elementsville.png', 32, 32);
+		this.game.load.spritesheet('nature', 'assets/tileset-nature.png', 32, 32);
+		this.game.load.spritesheet('platform', 'assets/tileset-V5.png', 32, 32);
+		this.game.load.spritesheet('water', 'assets/tileset-water.png', 32, 32);
+		this.game.load.spritesheet('gare', 'assets/tileset-gareCornavin-V2.png', 32, 32);
 
 		//sounds
 		this.game.load.audio('clic', 'assets/sounds/clic.mp3');
@@ -46,6 +41,7 @@ class Preload extends Phaser.State {
 		this.game.load.audio('loot', 'assets/sounds/loot.wav');
 		this.game.load.audio('song', 'assets/sounds/song.wav');
 		this.game.load.audio('hurt', 'assets/sounds/hurt.wav');
+		this.game.load.audio('success', 'assets/sounds/success.wav');
 	}
 
 	create() {
