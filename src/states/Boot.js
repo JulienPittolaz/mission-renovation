@@ -10,7 +10,7 @@ class Boot extends Phaser.State {
 
 	create() {
 		
-		if (!Phaser.Device.desktop && !window.innerWidth > 1000) {
+		if ((isMobile.any && window.innerWidth < 815) || window.innerWidth < 815) {
 			
 			this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 		} else {

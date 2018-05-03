@@ -99,7 +99,7 @@ class Main extends Phaser.State {
 		this.life.bringToTop();
 		var self = this;
 		this.pauseButton = this.game.add.button(30, $('canvas').height() - 30,
-			'pause', function() {self.pause(this)}, null, 1, 0, 1, 0);
+			'pause', function () { self.pause(this) }, null, 1, 0, 1, 0);
 		this.pauseButton.anchor.set(0.5);
 		this.pauseButton.scale.setTo(0.8);
 		this.pauseButton.fixedToCamera = true;
@@ -161,6 +161,16 @@ class Main extends Phaser.State {
 						});
 						self.title.anchor.set(0.5);
 						self.title.fixedToCamera = true;
+
+						self.nextLevel = self.game.add.button($('canvas').width() / 2, $('canvas').height() - 60,
+							'next-level', function () {
+								self.game.sound.play('clic');
+								self.camera.fade('#000000');
+								self.camera.onFadeComplete.add(self.game.state.start("GameTitle"), self);
+							}, null, null, null, 1, 0);
+						self.nextLevel.fixedToCamera = true;
+						self.nextLevel.anchor.setTo(0.5);
+						self.nextLevel.scale.set(0.2);
 					});
 				}, 1500);
 			}
@@ -231,7 +241,7 @@ class Main extends Phaser.State {
 			this.resumeButton.anchor.setTo(0.5);
 			this.resumeButton.scale.set(0.2);
 			this.resumeButton.fixedToCamera = true;
-			setTimeout(function() {
+			setTimeout(function () {
 				self.game.paused = true;
 				self.resumeButton.events.onInputDown.add(self.resume);
 			}, 10);
@@ -245,7 +255,7 @@ class Main extends Phaser.State {
 				this.resumeButton.setFrame(1);
 				this.resumeButton.destroy();
 				this.text.destroy();
-				
+
 				let timer = setInterval(function () {
 					if (self.timerText.text == "3") {
 						self.timerText.text = "2";

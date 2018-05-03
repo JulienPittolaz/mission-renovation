@@ -13,6 +13,7 @@ class Preload extends Phaser.State {
 		this.game.load.spritesheet('restart', 'assets/bouton-recommencer-sprite.png', 1184, 256);
 		this.game.load.spritesheet('start', 'assets/bouton-commencer-sprite.png', 1184, 256);
 		this.game.load.spritesheet('resume', 'assets/bouton-continuer-sprite.png', 1184, 256);
+		this.game.load.spritesheet('next-level', 'assets/niveauSuivant-bouton.png', 1184, 256);
 		this.game.load.spritesheet('next', 'assets/bouton-next-sprite.png', 100, 64);
 		this.game.load.spritesheet('pause', 'assets/pause.png', 66, 64);
 

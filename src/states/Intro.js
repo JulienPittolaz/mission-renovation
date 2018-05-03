@@ -21,12 +21,15 @@ class Intro extends Phaser.State {
 		this.page = 0;
 		this.text = this.game.add.text(this.box.width / 2.5 * -1, this.box.height / 3 * -1, texts[0], {
 			font: "perfectDOS",
-			fontSize: 18,
+			fontWeight: "bold",
+			fontSize: '16px',
 			fill: 'white',
 			align: 'left',
 			wordWrap: true,
 			wordWrapWidth: 440
 		});
+		console.log(this.text);
+		
 		this.box.addChild(this.text);
 		this.text.anchor.set(0);
 		let next = this.game.add.button(this.box.width / 2 - 100, this.box.height / 2 + 2,

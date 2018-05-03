@@ -11,8 +11,11 @@ var GENEVA = null;
 class Game extends Phaser.Game {
 
 	constructor() {
-		if(!Phaser.Device.desktop && window.innerWidth < 1000) {
-			if(window.innerWidth < 700) {
+		console.log(Phaser.Device);
+		console.log(isMobile.any);
+		
+		if((isMobile.any && window.innerWidth < 1000)) {
+			if(window.innerWidth < 815) {
 				$('.flex .ui-column').css('display', 'none');
 			}
 			super(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'game');
@@ -32,7 +35,7 @@ class Game extends Phaser.Game {
 
 }
 
-if(window.innerHeight > window.innerWidth && window.innerWidth < 700){
+if(window.innerHeight > window.innerWidth && window.innerWidth < 769){
 	$('.flex').css('display', 'none');
 	$('#turn').css('display', 'block');
 } else {
@@ -41,7 +44,7 @@ if(window.innerHeight > window.innerWidth && window.innerWidth < 700){
 }
 
 $(window).on('resize', function() {
-	if(window.innerHeight > window.innerWidth && window.innerWidth < 700){
+	if(window.innerHeight > window.innerWidth && window.innerWidth < 769){
 		if(GENEVA) {		
 			GENEVA.paused = true;
 			$('.flex').css('display', 'none');
