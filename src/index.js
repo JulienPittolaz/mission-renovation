@@ -11,11 +11,12 @@ var GENEVA = null;
 class Game extends Phaser.Game {
 
 	constructor() {
-		
-		if(!Phaser.Device.desktop && !window.innerWidth > 1000) {
-			console.log(23);
-			
+		if(!Phaser.Device.desktop && window.innerWidth < 1000) {
+			if(window.innerWidth < 700) {
+				$('.flex .ui-column').css('display', 'none');
+			}
 			super(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'game');
+			
 		} else {
 			super(667, 375, Phaser.CANVAS, 'game');
 		}
@@ -26,15 +27,13 @@ class Game extends Phaser.Game {
 		this.state.add('Intro', Intro, false);
 		this.state.add('Main', Main, false);
 		this.state.add('GameOver', GameOver, false);
-		console.log(this);
-		
 		this.state.start('Boot');
 	}
 
 }
 
-if(window.innerHeight > window.innerWidth){
-	$('canvas').css('visibility', 'hidden');
+if(window.innerHeight > window.innerWidth && window.innerWidth < 700){
+	$('.flex').css('display', 'none');
 	$('#turn').css('display', 'block');
 } else {
 	GENEVA = new Game();
@@ -42,23 +41,23 @@ if(window.innerHeight > window.innerWidth){
 }
 
 $(window).on('resize', function() {
-	if(window.innerHeight > window.innerWidth){
+	if(window.innerHeight > window.innerWidth && window.innerWidth < 700){
 		if(GENEVA) {		
 			GENEVA.paused = true;
-			$('canvas').css('visibility', 'hidden');
+			$('.flex').css('display', 'none');
 			$('#turn').css('display', 'block');
 		} else {
-			$('canvas').css('visibility', 'visible');
+			$('.flex').css('display', 'flex');
 			$('#turn').css('display', 'none');
 		}
 	} else {
 		if(GENEVA) {
 			GENEVA.paused = false;
-			$('canvas').css('visibility', 'visible');
+			$('.flex').css('display', 'flex');
 			$('#turn').css('display', 'none');
 		} else {
 			GENEVA = new Game();
-			$('canvas').css('visibility', 'visible');
+			$('.flex').css('display', 'flex');
 			$('#turn').css('display', 'none');
 		}
 	}

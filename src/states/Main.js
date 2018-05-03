@@ -141,7 +141,7 @@ class Main extends Phaser.State {
 						self.box.anchor.set(0.5);
 						let text = "Tu es arrivé au jardin anglais et tu as récupéré la relique. La chaise magique du grand conseil va te transporter jusqu'un lieu de la prochaine relique de la salle !"
 						self.text = self.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 10, text, {
-							font: "Minecraft",
+							font: "perfectDOS",
 							fontSize: 18,
 							fill: 'white',
 							align: 'center',
@@ -152,7 +152,7 @@ class Main extends Phaser.State {
 						self.box.fixedToCamera = true;
 						self.text.fixedToCamera = true;
 						self.title = self.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 100, 'Bravo !', {
-							font: "Minecraft",
+							font: "perfectDOS",
 							fontSize: 32,
 							fill: 'white',
 							align: 'center',

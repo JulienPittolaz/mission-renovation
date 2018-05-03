@@ -62,14 +62,42 @@ body {
 	  max-width: 300px;
   }
 
+  .ui-column {
+	  display: none;
+  }
+
 @media (max-width: 1200px) {
 	.ui {
 		display: none;
 	}
 
+	.ui-column {
+		display: block;
+		max-width: 80%;
+		margin: 40px auto;
+	}
+
+	.ui-column img {
+		max-width: 100%;
+	}
+
 	.flex {
 		align-items: center;
 		justify-content: center;
+		flex-direction: column;
 		height: 100vh;
+		max-width: 700px;
+		margin: auto;
+	}
+}
+
+@media (max-width: 700px) {
+	canvas {
+		border-radius: 0px;
+		box-shadow: 0;
+	}
+
+	.ui-column {
+		display: none;
 	}
 }

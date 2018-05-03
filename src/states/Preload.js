@@ -24,8 +24,6 @@ class Preload extends Phaser.State {
 		this.game.load.spritesheet('heart-hurt', 'assets/heart-hurt.png', 64, 64);
 		this.game.load.spritesheet('poivron', 'assets/poivron.png', 32, 32);
 		this.game.load.spritesheet('mobiliteReduite', 'assets/mobiliteReduite.png', 32, 32);
-		this.game.load.tilemap('niveau1', 'assets/map3.json', null, Phaser.Tilemap.TILED_JSON);
-		this.game.load.tilemap('niveau2', 'assets/niveau1.json', null, Phaser.Tilemap.TILED_JSON);
 		this.game.load.image('gareCache', 'assets/gareCornavin-gauche.png');
 		this.game.load.image('drapeau', 'assets/drapeau.png');
 		this.game.load.image('chair', 'assets/chaise.png');
@@ -43,13 +41,13 @@ class Preload extends Phaser.State {
 
 		//sounds
 		this.game.load.audio('clic', 'assets/sounds/clic.mp3');
-		this.game.load.audio('gameover', 'assets/sounds/gameover.wav');
-		this.game.load.audio('jump', 'assets/sounds/jump.wav');
-		this.game.load.audio('kill', 'assets/sounds/kill.wav');
-		this.game.load.audio('loot', 'assets/sounds/loot.wav');
-		this.game.load.audio('song', 'assets/sounds/song.wav');
-		this.game.load.audio('hurt', 'assets/sounds/hurt.wav');
-		this.game.load.audio('success', 'assets/sounds/success.wav');
+		this.game.load.audio('gameover', 'assets/sounds/gameover.mp3');
+		this.game.load.audio('jump', 'assets/sounds/jump.mp3');
+		this.game.load.audio('kill', 'assets/sounds/kill.mp3');
+		this.game.load.audio('loot', 'assets/sounds/loot.mp3');
+		this.game.load.audio('song', 'assets/sounds/song.mp3');
+		this.game.load.audio('hurt', 'assets/sounds/hurt.mp3');
+		this.game.load.audio('success', 'assets/sounds/success.mp3');
 		this.game.load.onFileComplete.add(this.fileComplete, this);
 		this.game.load.onLoadComplete.add(this.loadComplete, this);
 	}
