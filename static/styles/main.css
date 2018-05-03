@@ -9,7 +9,67 @@ body {
   height: inherit;
   width: inherit;
   margin: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('../assets/background.png');
+  background-size: cover;
+}
+
+.flex {
+	display: flex;
+	justify-content: space-around;
+	align-items: baseline;
+}
+
+@font-face {
+	font-family: 'perfectDOS';
+	src: url('../assets/perfectDOS.ttf');
+  }
+  * {
+	margin: 0;
+	padding: 0;
+	font-family: 'perfectDOS', sans-serif;
+  }
+
+  canvas {
+	  z-index: 300;
+	  border-radius: 9px;
+	  box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.70);
+  }
+
+  .ui {
+	  max-width: 100%;
+	  width: 300px;
+	  margin-top: 60px;
+  }
+
+  .ui:first-child {
+	  margin-top: 60px;
+  }
+
+  .ui img {
+	  max-width: 100%;
+  }
+
+  #turn {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+  }
+
+  #turn img {
+	  max-width: 300px;
+  }
+
+@media (max-width: 1200px) {
+	.ui {
+		display: none;
+	}
+
+	.flex {
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+	}
 }

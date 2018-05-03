@@ -1,0 +1,15 @@
+/* n10s admin styling */
+.et-pb-all-modules > li.et_pb_image_n10s {
+	color: #400000;
+}
+.et-pb-all-modules > li.et_pb_image_n10s:hover {
+	color: #600000;
+}
+.et-pb-all-modules > li.et_pb_image_n10s:before {
+    content: '\e075';
+    font-family: 'ETModules';
+}
+div[data-module_type="et_pb_image_n10s"] label[for="et_pb_button_icon_placement"], 
+div[data-module_type="et_pb_image_n10s"] #et_pb_button_icon_placement {
+	display: none;
+}

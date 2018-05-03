@@ -15,20 +15,21 @@ class Intro extends Phaser.State {
 		this.game.stage.backgroundColor = '#d5f6ff';
 		this.box = this.game.add.image($('canvas').width() / 2, $('canvas').height() / 2 - 30, 'intro-box', 0);
 		this.box.anchor.set(0.5);
-		this.player = this.game.add.sprite(580, 230, 'mereRoyaume', 0);
-		this.player.anchor.setTo(0.5);
+		this.player = this.game.add.sprite(this.box.width / 2, this.box.height / 8, 'mereRoyaume', 0);
 		this.player.scale.setTo(-1.5, 1.5);
+		this.box.addChild(this.player);
 		this.page = 0;
-		this.text = this.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 30, texts[0], {
-			font: "Minecraft",
+		this.text = this.game.add.text(this.box.width / 2.5 * -1, this.box.height / 3 * -1, texts[0], {
+			font: "perfectDOS",
 			fontSize: 18,
 			fill: 'white',
 			align: 'left',
 			wordWrap: true,
 			wordWrapWidth: 440
 		});
-		this.text.anchor.set(0.5);
-		let next = this.game.add.button($('canvas').width() - 115, $('canvas').height() - 40,
+		this.box.addChild(this.text);
+		this.text.anchor.set(0);
+		let next = this.game.add.button(this.box.width / 2 - 100, this.box.height / 2 + 2,
 		'next',
 		function() {
 			self.game.sound.play('clic');
@@ -40,7 +41,7 @@ class Intro extends Phaser.State {
 				self.text.text = texts[self.page];
 			}
 		}, null, null, null, 1, 0);
-		next.anchor.setTo(0.5);
+		this.box.addChild(next);
 
 	}
 

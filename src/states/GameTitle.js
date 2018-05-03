@@ -3,11 +3,10 @@ import $ from 'jquery';
 class GameTitle extends Phaser.State {
 
 	create() {
-		console.log(this);
-		
 		let self = this;
 		this.background =this.game.add.image(0, 0, 'splash1');
-		this.background.scale.setTo(0.35);
+		this.background.width = $('canvas').width();
+		this.background.height = $('canvas').height();
 		this.continueButton = this.game.add.button($('canvas').width() / 2, $('canvas').height() - 80,
 			'start', function() {
 				self.game.sound.play('clic');

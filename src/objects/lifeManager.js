@@ -1,9 +1,9 @@
 class LifeManager extends Phaser.Sprite {
 
-	constructor(game, x, y, key, frame, characterHealth) {
-		super(game, x, y, key, frame);
+	constructor(game, x, y, key, frame) {
+		
+		super(game, x, y, key, 3);
 		this.game = game;
-		this.health = characterHealth;
 		this.anchor.setTo(0.5);
 	}
 
