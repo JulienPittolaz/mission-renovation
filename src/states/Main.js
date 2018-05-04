@@ -49,7 +49,6 @@ class Main extends Phaser.State {
 		this.env.wrap = true;
 		this.grounds.renderSettings.enableScrollDelta = false;
 
-		this.flag = this.game.add.sprite(this.game.world.width - 200, 434, 'drapeau', 0);
 		this.chair = this.game.add.sprite(this.game.world.width - 160, this.game.world.height - 160, 'chair', 0);
 		this.jetEau = this.game.add.sprite(5400, this.game.world.height - 95, 'jetEau', 0);
 		this.jetEau.anchor.set(0, 1);
@@ -139,7 +138,7 @@ class Main extends Phaser.State {
 						self.player.alpha = 0;
 						self.box = self.game.add.image($('canvas').width() / 2, $('canvas').height() / 2 - 30, 'intro-box', 0);
 						self.box.anchor.set(0.5);
-						let text = "Tu es arrivé au jardin anglais et tu as récupéré la relique. La chaise magique du grand conseil va te transporter jusqu'un lieu de la prochaine relique de la salle !"
+						let text = "Tu es arrivé au jardin anglais et tu as récupéré la relique. La chaise magique du grand conseil va te transporter jusqu'au lieu de la prochaine relique de la salle !"
 						self.text = self.game.add.text($('canvas').width() / 2, $('canvas').height() / 2 - 10, text, {
 							font: "perfectDOS",
 							fontSize: 18,

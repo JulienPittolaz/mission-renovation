@@ -46,7 +46,7 @@ class Relique extends Phaser.Sprite {
 			this.looted = true;
 			this.phase1.start();
 			self.game.paused = true;
-			self.openPopup("Bravo ! Vous avez récupére l'accès aux personnes à mobilité réduite ! Une fois ramenée au Grand Conseil, tout le monde pourra accèder à la nouvelle salle !");
+			self.openPopup("Bravo ! Vous avez récupéré l'accès aux personnes à mobilité réduite ! Une fois ramené au Grand Conseil, tout le monde pourra accéder à la nouvelle salle !");
 		}
 	}
 

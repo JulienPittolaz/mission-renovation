@@ -9,7 +9,7 @@ class Intro extends Phaser.State {
 			"Le bâtiment du grand Conseil, l’organe qui crée et valide les lois du canton, n’a pas été rénové depuis 1962.",
 			"C’est pourquoi le Grand Conseil a décidé de faire appel à la Mère Royaume qu’ils jugent suffisamment courageuse pour relever un défi majeur. Elle aura besoin de ton aide pour récupérer des reliques, protégées par divers monstres, qui permettront de rénover la salle. ",
 			"Le grand conseil est allé la chercher en train, dans son monde, directement en 1602. Elle arrive à la gare dans une ville qui a complétement changé depuis son époque et elle se retrouve un peu perdue…",
-			"Aide la mère royaume à récupérer les reliques « durant ses péripéties à travers la ville ». Une fois que tu auras récupéré toutes les reliques tu pourras les amener à la salle du Grand Conseil qui pourra enfin être rénové.",
+			"Aide la mère royaume à récupérer les reliques durant ses péripéties à travers la ville. Une fois que tu auras récupéré toutes les reliques tu pourras les amener à la salle du Grand Conseil qui pourra enfin être rénovée.",
 		]
 		const self = this;
 		this.game.stage.backgroundColor = '#d5f6ff';
@@ -28,7 +28,6 @@ class Intro extends Phaser.State {
 			wordWrap: true,
 			wordWrapWidth: 440
 		});
-		console.log(this.text);
 		
 		this.box.addChild(this.text);
 		this.text.anchor.set(0);

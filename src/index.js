@@ -11,8 +11,6 @@ var GENEVA = null;
 class Game extends Phaser.Game {
 
 	constructor() {
-		console.log(Phaser.Device);
-		console.log(isMobile.any);
 		
 		if((isMobile.any && window.innerWidth < 1000)) {
 			if(window.innerWidth < 815) {
